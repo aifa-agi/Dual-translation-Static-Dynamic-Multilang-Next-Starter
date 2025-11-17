@@ -45,7 +45,7 @@ export const AIFA_ROADMAP_ITEMS: RoadmapItem[] = [
     title: 'Dual translation Static-Dynamic Multilang Next Starter',
     description:
       'A starter featuring sophisticated multi-language architecture that supports static page generation, internal tooling, and dynamic application development',
-    url: 'https://aifa-v2-2.vercel.app',
+    url: 'https://dual-translation-static-dynamic-mul.vercel.app',
     status: 'inProgress',
   },
 
