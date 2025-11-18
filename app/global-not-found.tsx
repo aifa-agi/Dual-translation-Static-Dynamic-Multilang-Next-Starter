@@ -85,7 +85,7 @@ export default function GlobalNotFoundPage() {
           <LayoutProvider>
             <ActiveThemeProvider>
               <div className="bg-background fixed inset-0 flex flex-col overflow-hidden">
-                <SiteHeader />
+                <SiteHeader lang="en"/>
 
                 <div className="flex flex-col min-h-screen items-center justify-center p-6">
                   {/* Error illustrations (theme-aware) */}
