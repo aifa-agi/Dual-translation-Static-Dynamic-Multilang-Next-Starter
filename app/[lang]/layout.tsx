@@ -2,7 +2,6 @@
 
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
-import { ReactNode } from 'react';
 import {
   SUPPORTED_LANGUAGES,
   DEFAULT_LANGUAGE,
@@ -13,45 +12,40 @@ import { appConfig } from '@/config/app-config';
 import { OnlineStatusProvider } from '@/providers/online-status-provider';
 
 // ============================================================================
-// TYPES - Один тип с опциональными параллельными слотами
+// STATIC PARAMS GENERATION
 // ============================================================================
 
 /**
- * Props type for both generateMetadata and LanguageLayout
- * Parallel routes (left, rightStatic, rightDynamic) are optional for generateMetadata
+ * Generate static params for all supported languages
+ * This enables static generation for each language route
  */
-type LayoutProps = {
-  params: Promise<{ lang: string }>;
-  left?: ReactNode;
-  rightStatic?: ReactNode;
-  rightDynamic?: ReactNode;
-};
-
-// ============================================================================
-// STATIC PARAMS
-// ============================================================================
-
 export function generateStaticParams() {
   return SUPPORTED_LANGUAGES.map((lang) => ({ lang }));
 }
 
 // ============================================================================
-// METADATA - использует LayoutProps (слоты опциональны)
+// METADATA GENERATION
 // ============================================================================
 
+/**
+ * Generate metadata for each language route
+ * Uses Next.js 15.5+ automatic typing - no manual type needed
+ */
 export async function generateMetadata({ 
   params 
-}: LayoutProps): Promise<Metadata> {
+}: { 
+  params: Promise<{ lang: string }> 
+}): Promise<Metadata> {
   const { lang } = await params;
 
-  // Validate language
+  // Validate language parameter
   if (!SUPPORTED_LANGUAGES.includes(lang as SupportedLanguage)) {
     return {};
   }
 
   const languageLabel = getLanguageLabel(lang as SupportedLanguage);
 
-  // Build language alternates for hreflang
+  // Build language alternates for hreflang SEO
   const languages: Record<string, string> = {};
   SUPPORTED_LANGUAGES.forEach((supportedLang) => {
     languages[supportedLang] = `${appConfig.url}/${supportedLang}`;
@@ -75,18 +69,30 @@ export async function generateMetadata({
 }
 
 // ============================================================================
-// LAYOUT COMPONENT - использует LayoutProps (слоты обязательны при рендере)
+// LAYOUT COMPONENT - Using Next.js 15.5+ LayoutProps helper
 // ============================================================================
 
-export default async function LanguageLayout({
-  params,
-  left,
-  rightStatic,
-  rightDynamic,
-}: LayoutProps) {
+/**
+ * Language Layout with Parallel Routes
+ * 
+ * Structure:
+ * - @left: Left sidebar (hidden on mobile, visible on desktop)
+ * - @rightStatic: Main static content area
+ * - @rightDynamic: Dynamic overlays (modals, intercepted routes)
+ * 
+ * Next.js 15.5+ automatically types all parallel route slots and params
+ * No manual typing needed - LayoutProps is globally available
+ */
+export default async function LanguageLayout(
+  props: LayoutProps<'/[lang]'>
+) {
+  // Destructure all props: params + parallel route slots
+  const { params, left, rightStatic, rightDynamic } = props;
+  
+  // Await params (required in Next.js 15+)
   const { lang } = await params;
 
-  // Validate language parameter
+  // Validate language parameter - return 404 if invalid
   if (!SUPPORTED_LANGUAGES.includes(lang as SupportedLanguage)) {
     notFound();
   }
@@ -94,7 +100,12 @@ export default async function LanguageLayout({
   return (
     <>
       <div className="h-full flex" data-lang={lang}>
-        {/* LEFT COLUMN */}
+        {/* ===================================================================
+            LEFT COLUMN - Sidebar
+            - Hidden on mobile (hidden md:flex)
+            - Responsive width: 0 on md, 50% on lg, 35% on xl
+            - Contains navigation, filters, or auxiliary content
+            =================================================================== */}
         <div className="hidden md:flex md:w-0 lg:w-[50%] xl:w-[35%] border-r border-border">
           <OnlineStatusProvider>
             <div className="h-full w-full overflow-hidden">
@@ -103,14 +114,19 @@ export default async function LanguageLayout({
           </OnlineStatusProvider>
         </div>
 
-        {/* RIGHT COLUMN */}
+        {/* ===================================================================
+            RIGHT COLUMN - Main Content Area
+            - Full width on mobile, responsive width on desktop
+            - Contains static content + dynamic overlays
+            =================================================================== */}
         <div className="w-full md:w-full lg:w-[50%] xl:w-[65%] relative">
-          {/* STATIC CONTENT */}
+          
+          {/* STATIC CONTENT - Main scrollable area */}
           <main className="absolute inset-0 overflow-y-auto hide-scrollbar">
             {rightStatic}
           </main>
 
-          {/* DYNAMIC CONTENT OVERLAY */}
+          {/* DYNAMIC CONTENT - Overlays (modals, intercepted routes) */}
           {rightDynamic}
         </div>
       </div>
