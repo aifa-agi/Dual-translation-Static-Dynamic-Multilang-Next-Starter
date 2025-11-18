@@ -87,7 +87,7 @@ export default async function LanguageLayout(
   props: LayoutProps<'/[lang]'>
 ) {
   // Destructure all props: params + parallel route slots
-  const { params, left, rightStatic, rightDynamic , modal} = props;
+  const { params, left, rightStatic, rightDynamic } = props;
   
   // Await params (required in Next.js 15+)
   const { lang } = await params;
@@ -124,8 +124,6 @@ export default async function LanguageLayout(
           {/* STATIC CONTENT - Main scrollable area */}
           <main className="absolute inset-0 overflow-y-auto hide-scrollbar">
             {rightStatic}
-
-            {modal}
           </main>
 
           {/* DYNAMIC CONTENT - Overlays (modals, intercepted routes) */}

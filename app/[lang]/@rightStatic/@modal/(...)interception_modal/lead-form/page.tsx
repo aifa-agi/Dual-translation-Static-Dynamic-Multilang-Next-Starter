@@ -20,6 +20,17 @@ type ApiResponse = {
   mock?: boolean;
 };
 
+// ============================================================================
+// FORCE DYNAMIC RENDERING - Required for intercepting routes
+// ============================================================================
+
+/**
+ * Intercepting routes should not be statically generated
+ * They only work during client-side navigation
+ */
+export const dynamic = 'force-dynamic';
+
+
 export default function LeadFormModal() {
   console.log("(...)interception_modal/lead-form/page.tsx loaded"); 
 

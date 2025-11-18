@@ -8,6 +8,12 @@ import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import { appConfig } from "@/config/app-config";
 
+// ============================================================================
+// FORCE DYNAMIC RENDERING
+// ============================================================================
+
+export const dynamic = 'force-dynamic';
+
 export default function ChatDrawerModal() {
   const router = useRouter();
   const [isOpen, setIsOpen] = useState(false);
