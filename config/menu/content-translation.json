@@ -1,0 +1,20 @@
+
+{
+  "Home": {
+    "en": "Home",
+    "ru": "Главная",
+    "es": "Inicio",
+    "de": "Startseite",
+    "fr": "Accueil",
+    "it": "Home"
+  },
+  "Welcome to our AI-powered platform. Discover innovative solutions and cutting-edge technology.": {
+    "en": "Welcome to our AI-powered platform. Discover innovative solutions and cutting-edge technology.",
+    "ru": "Добро пожаловать на нашу платформу с ИИ. Откройте для себя инновационные решения и передовые технологии.",
+    "es": "Bienvenido a nuestra plataforma impulsada por IA. Descubra soluciones innovadoras y tecnología de vanguardia.",
+    "de": "Willkommen auf unserer KI-gestützten Plattform. Entdecken Sie innovative Lösungen und modernste Technologie.",
+    "fr": "Bienvenue sur notre plateforme alimentée par l'IA. Découvrez des solutions innovantes et une technologie de pointe.",
+    "it": "Benvenuti sulla nostra piattaforma basata sull'intelligenza artificiale. Scoprite soluzioni innovative e tecnologia all'avanguardia."
+  }
+
+}

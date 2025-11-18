@@ -2,6 +2,7 @@
 
 import { isAuthenticated } from "@/app/[lang]/@left/(_AUTH)/login/(_server)/actions/auth"
 import { SiteHeaderClient } from "./site-header-client"
+import { SupportedLanguage } from "@/config/translations.config"
 
 /**
  * Site header - Server Component
@@ -13,8 +14,8 @@ import { SiteHeaderClient } from "./site-header-client"
  * - Server-side authentication check on initial render
  * - Client-side reactivity for auth state changes
  */
-export async function SiteHeader() {
+export async function SiteHeader({lang}:{lang: SupportedLanguage}) {
   const authenticated = await isAuthenticated()
   
-  return <SiteHeaderClient initialAuth={authenticated} />
+  return <SiteHeaderClient initialAuth={authenticated} lang={lang} />
 }

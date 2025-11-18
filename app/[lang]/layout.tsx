@@ -10,6 +10,8 @@ import {
 } from '@/config/translations.config';
 import { appConfig } from '@/config/app-config';
 import { OnlineStatusProvider } from '@/providers/online-status-provider';
+import AifaFooter from '@/components/aifa-footer';
+import { SiteHeader } from '@/components/site-header/site-header-wrapper';
 
 // ============================================================================
 // STATIC PARAMS GENERATION
@@ -31,10 +33,10 @@ export function generateStaticParams() {
  * Generate metadata for each language route
  * Uses Next.js 15.5+ automatic typing - no manual type needed
  */
-export async function generateMetadata({ 
-  params 
-}: { 
-  params: Promise<{ lang: string }> 
+export async function generateMetadata({
+  params
+}: {
+  params: Promise<{ lang: string }>
 }): Promise<Metadata> {
   const { lang } = await params;
 
@@ -88,7 +90,7 @@ export default async function LanguageLayout(
 ) {
   // Destructure all props: params + parallel route slots
   const { params, left, rightStatic, rightDynamic } = props;
-  
+
   // Await params (required in Next.js 15+)
   const { lang } = await params;
 
@@ -99,36 +101,48 @@ export default async function LanguageLayout(
 
   return (
     <>
-      <div className="h-full flex" data-lang={lang}>
-        {/* ===================================================================
+
+      <div className="bg-background fixed inset-0 flex flex-col overflow-hidden">
+        <SiteHeader lang={lang}/>
+
+        {/* Main content area - child layouts render here */}
+        <div className="flex-1 min-h-0 w-full">
+
+
+          <div className="h-full flex" data-lang={lang}>
+            {/* ===================================================================
             LEFT COLUMN - Sidebar
             - Hidden on mobile (hidden md:flex)
             - Responsive width: 0 on md, 50% on lg, 35% on xl
             - Contains navigation, filters, or auxiliary content
             =================================================================== */}
-        <div className="hidden md:flex md:w-0 lg:w-[50%] xl:w-[35%] border-r border-border">
-          <OnlineStatusProvider>
-            <div className="h-full w-full overflow-hidden">
-              {left}
+            <div className="hidden md:flex md:w-0 lg:w-[50%] xl:w-[35%] border-r border-border">
+              <OnlineStatusProvider>
+                <div className="h-full w-full overflow-hidden">
+                  {left}
+                </div>
+              </OnlineStatusProvider>
             </div>
-          </OnlineStatusProvider>
-        </div>
 
-        {/* ===================================================================
+            {/* ===================================================================
             RIGHT COLUMN - Main Content Area
             - Full width on mobile, responsive width on desktop
             - Contains static content + dynamic overlays
             =================================================================== */}
-        <div className="w-full md:w-full lg:w-[50%] xl:w-[65%] relative">
-          
-          {/* STATIC CONTENT - Main scrollable area */}
-          <main className="absolute inset-0 overflow-y-auto hide-scrollbar">
-            {rightStatic}
-          </main>
+            <div className="w-full md:w-full lg:w-[50%] xl:w-[65%] relative">
 
-          {/* DYNAMIC CONTENT - Overlays (modals, intercepted routes) */}
-          {rightDynamic}
+              {/* STATIC CONTENT - Main scrollable area */}
+              <main className="absolute inset-0 overflow-y-auto hide-scrollbar">
+                {rightStatic}
+              </main>
+
+              {/* DYNAMIC CONTENT - Overlays (modals, intercepted routes) */}
+              {rightDynamic}
+            </div>
+          </div>
         </div>
+
+        <AifaFooter />
       </div>
     </>
   );

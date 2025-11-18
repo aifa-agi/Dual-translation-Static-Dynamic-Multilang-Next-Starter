@@ -16,16 +16,14 @@ import {
 import { MenuCategory } from "@/types/menu-types"
 import { appConfig } from "@/config/app-config"
 import { AnimatedAIButton } from "@/components/animated-ai-button"
+import { SupportedLanguage } from "@/config/translations.config"
 
 interface MobileNavProps {
   categories: MenuCategory[]
   className?: string
+  lang: SupportedLanguage
 }
 
-/**
- * Helper: filter only published pages inside a category
- * Returns new category object with filtered pages
- */
 function withPublishedPagesOnly(category: MenuCategory): MenuCategory {
   const safePages = category.pages ?? []
 
@@ -75,7 +73,7 @@ function MobileNavLink({
   )
 }
 
-export function MobileNav({ categories, className }: MobileNavProps) {
+export function MobileNav({ categories, className, lang }: MobileNavProps) {
   const [open, setOpen] = React.useState(false)
   const pathname = usePathname()
 
@@ -91,18 +89,18 @@ export function MobileNav({ categories, className }: MobileNavProps) {
   // Filter out any "Home" category from data to avoid duplicates
   const otherCategories = React.useMemo(() => {
     return (filteredCategories ?? []).filter(
-      (c) => (c?.title ?? "").toLowerCase() !== "home"
+      (c) => (c?.id ?? "").toLowerCase() !== "homeCategory"
     )
   }, [filteredCategories])
 
   // Home categories (only those named "Home")
   const homeCategories = React.useMemo(() => {
     return (filteredCategories ?? [])
-      .filter((c) => (c?.title ?? "").toLowerCase() === "home")
+      .filter((c) => (c?.id ?? "")=== "homeCategory")
       .map((category) => ({
         ...category,
         pages: (category.pages ?? []).filter(
-          (page) => (page?.title ?? "").toLowerCase() !== "home"
+          (page) => (page?.id ?? "") !== "homePage"
         ),
       }))
       .filter((category) => category.pages.length > 0)
@@ -167,7 +165,6 @@ export function MobileNav({ categories, className }: MobileNavProps) {
                   height={96}
                   className="h-24 w-24 object-cover rounded-md"
                   priority={false}
-                  placeholder="blur"
                 />
               </div>
               <div className="mb-2 text-base font-medium text-left capitalize">

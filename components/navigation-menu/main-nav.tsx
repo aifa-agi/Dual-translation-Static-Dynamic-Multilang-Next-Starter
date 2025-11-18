@@ -17,16 +17,15 @@ import {
 } from "@/components/ui/navigation-menu"
 import { MenuCategory } from "@/types/menu-types"
 import Image from "next/image"
+import { SupportedLanguage } from "@/config/translations.config"
 
 interface MainNavProps {
   items: MenuCategory[]
   className?: string
+  lang: SupportedLanguage
 }
 
-/**
- * Helper: filter only published pages inside a category
- * Returns new category object with filtered pages
- */
+
 function withPublishedPagesOnly(category: MenuCategory): MenuCategory {
   const safePages = category.pages ?? []
 
@@ -38,7 +37,7 @@ function withPublishedPagesOnly(category: MenuCategory): MenuCategory {
   }
 }
 
-export function MainNav({ items, className }: MainNavProps) {
+export function MainNav({ items, className, lang }: MainNavProps) {
   const pathname = usePathname()
 
   // Pre-filter categories to contain only published pages
@@ -52,7 +51,7 @@ export function MainNav({ items, className }: MainNavProps) {
     <NavigationMenu className={className}>
       <NavigationMenuList>
         {categoriesWithPublishedPages.map((category) => {
-          const lowerCaseTitle = (category.title ?? "").toLowerCase()
+          const categoryId = (category.id?? "")
           const isActive = category.href ? pathname === category.href : false
 
           // Skip categories without pages after filtering
@@ -61,7 +60,7 @@ export function MainNav({ items, className }: MainNavProps) {
           }
 
           // Special logic for "Home" category
-          if (lowerCaseTitle === "home") {
+          if (categoryId === "homeCategory") {
             return (
               <NavigationMenuItem key={category.title}>
                 <NavigationMenuTrigger
@@ -88,7 +87,6 @@ export function MainNav({ items, className }: MainNavProps) {
                               height={128}
                               className="h-[128px] w-[128px] object-cover"
                               priority={false}
-                  placeholder="blur"
                             />
                           </div>
                           <div className="mb-2 text-lg font-medium text-left capitalize">

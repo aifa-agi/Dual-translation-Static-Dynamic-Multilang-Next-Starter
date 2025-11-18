@@ -15,8 +15,6 @@ import { ActiveThemeProvider } from '@/providers/active-theme';
 import { ThemeProvider } from '@/providers/theme-provider';
 import { LayoutProvider } from '@/hooks/use-layout';
 import { Analytics } from '@vercel/analytics/next';
-import { SiteHeader } from '@/components/site-header/site-header-wrapper';
-import AifaFooter from '@/components/aifa-footer';
 
 export const metadata: Metadata = constructMetadata({
   pathname: '/',
@@ -136,16 +134,8 @@ export default function RootLayout({
         <ThemeProvider>
           <LayoutProvider>
             <ActiveThemeProvider>
-              <div className="bg-background fixed inset-0 flex flex-col overflow-hidden">
-                <SiteHeader />
+              {children}
 
-                {/* Main content area - child layouts render here */}
-                <div className="flex-1 min-h-0 w-full">
-                  {children}
-                </div>
-
-                <AifaFooter />
-              </div>
             </ActiveThemeProvider>
           </LayoutProvider>
         </ThemeProvider>

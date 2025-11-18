@@ -3,7 +3,7 @@
 // This preserves your category/page logic while ensuring no duplicate homepage URL.
 
 import { MetadataRoute } from 'next';
-import { contentData } from '@/config/content-data';
+import { contentData } from '@/config/menu/content-data';
 import { appConfig } from '@/config/app-config';
 
 export default function sitemap(): MetadataRoute.Sitemap {

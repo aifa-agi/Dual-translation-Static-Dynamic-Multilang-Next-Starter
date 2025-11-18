@@ -4,6 +4,7 @@ import { PageData } from "./page-types";
 
 
 export interface MenuCategory {
+  id: string
   title: string;
   href?: string;
   order?: number;
