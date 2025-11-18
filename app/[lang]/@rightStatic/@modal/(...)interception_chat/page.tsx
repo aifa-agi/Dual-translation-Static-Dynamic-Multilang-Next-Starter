@@ -1,4 +1,4 @@
-//app/@rightStatic/@modal/(...)interception_chat/page.tsx
+//app/[lang]/@rightStatic/@modal/(...)interception_chat/page.tsx
 "use client";
 
 import { useRouter } from "next/navigation";

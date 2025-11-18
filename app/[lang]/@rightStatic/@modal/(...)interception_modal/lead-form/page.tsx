@@ -1,4 +1,4 @@
-//app/@rightStatic/@modal/(...)interception_modal/lead-form/page.tsx
+//aapp/[lang]/@rightStatic/@modal/(...)interception_modal/lead-form/page.tsx
 "use client";
 
 import { useRouter } from "next/navigation";
