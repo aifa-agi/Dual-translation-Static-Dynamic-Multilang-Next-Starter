@@ -1,4 +1,4 @@
-// @/aifa-v2/types/page-types.ts
+//types/page-types.ts
 import { Metadata } from "next";
 
 import { UserType } from "./user-type";
@@ -350,7 +350,7 @@ export interface PageData {
   metadata?: Metadata;
   id: string;
   href?: string;
-  type: "blog" | "docs" | "news" | "feature"; 
+  type: "blog" | "docs" | "news" | "feature" | "homePage"; 
   title?: string;
   description?: string;
   internalKnowledgeBase?: string;

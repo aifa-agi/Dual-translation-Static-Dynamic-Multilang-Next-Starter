@@ -1,4 +1,4 @@
-// @/aifa-v2/types/menu-types.ts
+// types/menu-types.ts
 
 import { PageData } from "./page-types";
 
