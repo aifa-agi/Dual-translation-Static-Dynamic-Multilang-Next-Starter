@@ -2,7 +2,6 @@
 
 import Link from 'next/link';
 import { Card } from '@/components/ui/card';
-import FeaturesPageComponent from '@/app/[lang]/@rightStatic/(_PUBLIC)/(_FEATURES)/features/(_components)/features-page-component';
 
 /**
  * StatusPill component for feature labels
@@ -20,7 +19,7 @@ export default function ArticleContent() {
     <>
     
 
-      <FeaturesPageComponent />
+    
 
       {/* Features Section */}
       <section className="mb-12" aria-labelledby="features">

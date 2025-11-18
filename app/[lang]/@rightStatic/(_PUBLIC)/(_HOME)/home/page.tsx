@@ -134,7 +134,7 @@ export const HOME_PAGE_CONFIG: PageWrapperConfig = {
       },
       secondary: {
         text: 'Check Modal',
-        href: '/interception_modal/lead-form',
+        href: '/#',
       },
     },
   },
