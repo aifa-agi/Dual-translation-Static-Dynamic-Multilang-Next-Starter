@@ -12,19 +12,19 @@ import {
 import { appConfig } from '@/config/app-config';
 import { OnlineStatusProvider } from '@/providers/online-status-provider';
 
-
-type MetadataProps = {
-  params: Promise<{ lang: string }>;
-};
+// ============================================================================
+// TYPES - Один тип с опциональными параллельными слотами
+// ============================================================================
 
 /**
- * Type для LanguageLayout - params + параллельные слоты
+ * Props type for both generateMetadata and LanguageLayout
+ * Parallel routes (left, rightStatic, rightDynamic) are optional for generateMetadata
  */
 type LayoutProps = {
   params: Promise<{ lang: string }>;
-  left: ReactNode;
-  rightStatic: ReactNode;
-  rightDynamic: ReactNode;
+  left?: ReactNode;
+  rightStatic?: ReactNode;
+  rightDynamic?: ReactNode;
 };
 
 // ============================================================================
@@ -36,12 +36,12 @@ export function generateStaticParams() {
 }
 
 // ============================================================================
-// METADATA - использует MetadataProps
+// METADATA - использует LayoutProps (слоты опциональны)
 // ============================================================================
 
 export async function generateMetadata({ 
   params 
-}: MetadataProps): Promise<Metadata> {
+}: LayoutProps): Promise<Metadata> {
   const { lang } = await params;
 
   // Validate language
@@ -75,7 +75,7 @@ export async function generateMetadata({
 }
 
 // ============================================================================
-// LAYOUT COMPONENT - использует LayoutProps
+// LAYOUT COMPONENT - использует LayoutProps (слоты обязательны при рендере)
 // ============================================================================
 
 export default async function LanguageLayout({
