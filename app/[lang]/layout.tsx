@@ -12,27 +12,39 @@ import {
 import { appConfig } from '@/config/app-config';
 import { OnlineStatusProvider } from '@/providers/online-status-provider';
 
-/**
- * Type for params Promise (Next.js 15 async params)
- */
-type Params = Promise<{ lang: string }>;
+
+type MetadataProps = {
+  params: Promise<{ lang: string }>;
+};
 
 /**
- * Generate static params for all supported languages
- * This tells Next.js to pre-render a page for each language at build time
- *
- * Called during: next build
- * Output: /en, /ru, /es, /de, /fr, /it (based on .env config)
+ * Type для LanguageLayout - params + параллельные слоты
  */
+type LayoutProps = {
+  params: Promise<{ lang: string }>;
+  left: ReactNode;
+  rightStatic: ReactNode;
+  rightDynamic: ReactNode;
+};
+
+// ============================================================================
+// STATIC PARAMS
+// ============================================================================
+
 export function generateStaticParams() {
   return SUPPORTED_LANGUAGES.map((lang) => ({ lang }));
 }
 
+// ============================================================================
+// METADATA - использует MetadataProps
+// ============================================================================
 
-export async function generateMetadata({ params }: { params: Params }): Promise<Metadata> {
+export async function generateMetadata({ 
+  params 
+}: MetadataProps): Promise<Metadata> {
   const { lang } = await params;
 
-  // Validate language (for TypeScript - runtime validation is in layout below)
+  // Validate language
   if (!SUPPORTED_LANGUAGES.includes(lang as SupportedLanguage)) {
     return {};
   }
@@ -62,30 +74,27 @@ export async function generateMetadata({ params }: { params: Params }): Promise<
   };
 }
 
+// ============================================================================
+// LAYOUT COMPONENT - использует LayoutProps
+// ============================================================================
 
 export default async function LanguageLayout({
-
+  params,
   left,
   rightStatic,
   rightDynamic,
-  params,
-}: {
-  left: ReactNode;
-  rightStatic: ReactNode;
-  rightDynamic: ReactNode;
-  params: Params;
-}) {
+}: LayoutProps) {
   const { lang } = await params;
 
+  // Validate language parameter
   if (!SUPPORTED_LANGUAGES.includes(lang as SupportedLanguage)) {
     notFound();
   }
 
   return (
     <>
-
       <div className="h-full flex" data-lang={lang}>
-
+        {/* LEFT COLUMN */}
         <div className="hidden md:flex md:w-0 lg:w-[50%] xl:w-[35%] border-r border-border">
           <OnlineStatusProvider>
             <div className="h-full w-full overflow-hidden">
@@ -94,17 +103,17 @@ export default async function LanguageLayout({
           </OnlineStatusProvider>
         </div>
 
+        {/* RIGHT COLUMN */}
         <div className="w-full md:w-full lg:w-[50%] xl:w-[65%] relative">
-
+          {/* STATIC CONTENT */}
           <main className="absolute inset-0 overflow-y-auto hide-scrollbar">
             {rightStatic}
           </main>
 
+          {/* DYNAMIC CONTENT OVERLAY */}
           {rightDynamic}
         </div>
       </div>
-
-
     </>
   );
 }
