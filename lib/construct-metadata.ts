@@ -3,6 +3,7 @@
 import { appConfig, getOgImagePath } from '@/config/app-config';
 import type { Metadata } from 'next';
 import type { ContentType, AuthorConfig } from '@/config/app-config';
+import { SUPPORTED_LANGUAGES } from '@/config/translations.config';
 
 export type { AuthorConfig } from '@/config/app-config';
 
@@ -253,6 +254,7 @@ const buildOrganizationSchema = (): JsonLdSchema => {
   return schema;
 };
 
+
 export function constructMetadata({
   title = appConfig.name,
   description = appConfig.description,
@@ -268,6 +270,13 @@ export function constructMetadata({
   const path = normalizePath(pathname);
   const canonical = new URL(path, base).toString();
   const validDescription = truncateDescription(description);
+
+ const languages: Record<string, string> = {};
+  SUPPORTED_LANGUAGES.forEach((lang) => {
+    languages[lang] = `${base}/${lang}${path}`;
+  });
+  languages['x-default'] = `${base}/${appConfig.lang}${path}`;
+
 
   const verification: Record<string, string> = {};
   const googleVerification = process.env.NEXT_PUBLIC_GOOGLE_VERIFICATION?.trim();
@@ -297,7 +306,9 @@ export function constructMetadata({
     },
     description: validDescription,
     metadataBase: new URL(appConfig.url),
-    alternates: { canonical },
+    alternates: {
+      canonical,
+      languages},
     manifest: appConfig.manifest,
     icons: CACHED_ICONS,
     creator: appConfig.short_name,

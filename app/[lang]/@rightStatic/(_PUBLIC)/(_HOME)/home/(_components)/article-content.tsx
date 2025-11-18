@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import { Card } from '@/components/ui/card';
-import FeaturesPageComponent from '@/app/@rightStatic/(_PUBLIC)/(_FEATURES)/features/(_components)/features-page-component';
+import FeaturesPageComponent from '@/app/[lang]/@rightStatic/(_PUBLIC)/(_FEATURES)/features/(_components)/features-page-component';
 
 /**
  * StatusPill component for feature labels
@@ -15,12 +15,6 @@ function StatusPill({ label }: { label: string }) {
   );
 }
 
-/**
- * Home Page Component
- * 
- * Note: Hero, Breadcrumbs, Badges, and FAQ are handled by SeoPageWrapper
- * This component contains only the main content sections
- */
 export default function ArticleContent() {
   return (
     <>

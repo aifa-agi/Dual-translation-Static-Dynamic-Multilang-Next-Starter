@@ -13,7 +13,7 @@ export function OfflinePlaceholder() {
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-background text-foreground p-6">
-      <div className="text-center max-w-md">
+      <div className="text-center max-w-lg">
         <div className="flex items-center justify-center mb-4">
           <WifiOff className="w-6 h-6 mr-2" />
           <p className="text-2xl font-semibold">{offlineMessage}</p>

@@ -1,27 +1,26 @@
 // app/layout.tsx
-import type { Metadata, Viewport } from 'next'
-import { constructMetadata } from '@/lib/construct-metadata'
-import { META_THEME_COLORS, appConfig } from '@/config/app-config'
-import { fontVariables } from "@/lib/fonts"
-import './styles/globals.css'
-import { Toaster } from "sonner";
-import { CookieBanner } from '@/components/cookie-banner/cookie-banner'
-import { GoogleAnalytics } from '@next/third-parties/google'
-import { OnlineStatusProvider } from '@/providers/online-status-provider'
-import { TailwindIndicator } from "@/components/tailwind-indicator"
-import { cn } from '@/lib/utils'
-import { ActiveThemeProvider } from '@/providers/active-theme'
-import { ThemeProvider } from '@/providers/theme-provider'
-import { LayoutProvider } from '@/hooks/use-layout'
-import { Analytics } from '@vercel/analytics/next'
-import { SiteHeader } from '@/components/site-header/site-header-wrapper'
-import AifaFooter from '@/components/aifa-footer'
 
+import type { Metadata, Viewport } from 'next';
+import { ReactNode } from 'react';
+import { constructMetadata } from '@/lib/construct-metadata';
+import { META_THEME_COLORS, appConfig } from '@/config/app-config';
+import { fontVariables } from '@/lib/fonts';
+import './styles/globals.css';
+import { Toaster } from 'sonner';
+import { CookieBanner } from '@/components/cookie-banner/cookie-banner';
+import { GoogleAnalytics } from '@next/third-parties/google';
+import { TailwindIndicator } from '@/components/tailwind-indicator';
+import { cn } from '@/lib/utils';
+import { ActiveThemeProvider } from '@/providers/active-theme';
+import { ThemeProvider } from '@/providers/theme-provider';
+import { LayoutProvider } from '@/hooks/use-layout';
+import { Analytics } from '@vercel/analytics/next';
+import { SiteHeader } from '@/components/site-header/site-header-wrapper';
+import AifaFooter from '@/components/aifa-footer';
 
 export const metadata: Metadata = constructMetadata({
   pathname: '/',
-})
-
+});
 
 export const viewport: Viewport = {
   width: 'device-width',
@@ -34,8 +33,7 @@ export const viewport: Viewport = {
     { media: '(prefers-color-scheme: light)', color: appConfig.pwa.backgroundColor },
     { media: '(prefers-color-scheme: dark)', color: appConfig.pwa.themeColor },
   ],
-}
-
+};
 
 const jsonLdWebSite = {
   '@context': 'https://schema.org',
@@ -52,8 +50,7 @@ const jsonLdWebSite = {
     },
     'query-input': 'required name=search_term_string',
   },
-}
-
+};
 
 const jsonLdOrganization = {
   '@context': 'https://schema.org',
@@ -66,7 +63,7 @@ const jsonLdOrganization = {
   sameAs: [
     appConfig.seo?.social?.github,
     appConfig.seo?.social?.twitter
-      ? `https://twitter.com/${appConfig.seo.social.twitter}`
+      ? `https://twitter.com/${appConfig.seo.social.twitter.replace('@', '')}`
       : null,
     appConfig.seo?.social?.linkedin,
     appConfig.seo?.social?.facebook,
@@ -77,17 +74,12 @@ const jsonLdOrganization = {
     contactType: 'Customer Support',
     availableLanguage: appConfig.seo?.locales || [appConfig.lang],
   },
-}
+};
 
-
-export default async function RootLayout({
-  left,
-  rightStatic,
-  rightDynamic,
+export default function RootLayout({
+  children,
 }: {
-  left: React.ReactNode;
-  rightStatic: React.ReactNode;
-  rightDynamic: React.ReactNode;
+  children: ReactNode;
 }) {
   return (
     <html lang={appConfig.lang} suppressHydrationWarning>
@@ -105,7 +97,7 @@ export default async function RootLayout({
         <meta name="format-detection" content="telephone=no, date=no, email=no, address=no" />
         <meta name="theme-color" content={META_THEME_COLORS.light} />
 
-        {/* Theme script - must be inline for no-flash */}
+        {/* Theme script - must be inline for no-flash dark mode */}
         <script
           dangerouslySetInnerHTML={{
             __html: `
@@ -121,7 +113,7 @@ export default async function RootLayout({
           }}
         />
 
-        {/* JSON-LD schemas for SEO - MOVED TO HEAD with native script tags */}
+        {/* JSON-LD schemas for SEO */}
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
@@ -137,49 +129,23 @@ export default async function RootLayout({
       </head>
       <body
         className={cn(
-          "text-foreground group/body overscroll-none font-sans antialiased [--footer-height:calc(var(--spacing)*14)] [--header-height:calc(var(--spacing)*14)] xl:[--footer-height:calc(var(--spacing)*24)] ",
+          'text-foreground group/body overscroll-none font-sans antialiased [--footer-height:calc(var(--spacing)*14)] [--header-height:calc(var(--spacing)*14)] xl:[--footer-height:calc(var(--spacing)*24)]',
           fontVariables
         )}
       >
-        
-
         <ThemeProvider>
           <LayoutProvider>
             <ActiveThemeProvider>
               <div className="bg-background fixed inset-0 flex flex-col overflow-hidden">
                 <SiteHeader />
 
-
-
+                {/* Main content area - child layouts render here */}
                 <div className="flex-1 min-h-0 w-full">
-
-                  <div className="h-full flex">
-
-                    <div className="hidden md:flex md:w-0 lg:w-[50%] xl:w-[35%] border-r border-border">
-                      <OnlineStatusProvider>
-                        <div className="h-full w-full overflow-hidden">
-                          {left}
-                        </div>
-                      </OnlineStatusProvider>
-                    </div>
-
-
-                    <div className="w-full md:w-full lg:w-[50%] xl:w-[65%] relative">
-                      <main className="absolute inset-0 overflow-y-auto hide-scrollbar">
-                        {rightStatic}
-                      </main>
-                      {rightDynamic}
-                    </div>
-                  </div>
+                  {children}
                 </div>
-                
-
-
 
                 <AifaFooter />
               </div>
-
-              
             </ActiveThemeProvider>
           </LayoutProvider>
         </ThemeProvider>
@@ -215,15 +181,15 @@ export default async function RootLayout({
         </noscript>
 
         <CookieBanner />
-        {process.env.NODE_ENV === "development" && (
-        <TailwindIndicator />)}
+        {process.env.NODE_ENV === 'development' && <TailwindIndicator />}
         <Toaster position="top-center" />
-        {process.env.NODE_ENV === "production" && (
-          <GoogleAnalytics
-            gaId={process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS_ID!}
-          />
+        {process.env.NODE_ENV === 'production' && (
+          <>
+            <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS_ID!} />
+            <Analytics />
+          </>
         )}
       </body>
     </html>
-  )
+  );
 }

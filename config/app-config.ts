@@ -189,7 +189,7 @@ icons: {
       '/_next/*',
     ],
     canonicalBase: SITE_URL,
-    locales: ['en', 'es', 'de', 'fr', 'it', 'ru'],
+   locales: process.env.NEXT_PUBLIC_SUPPORTED_LANGUAGES?.split(',').map(l => l.trim()) || ['en'],
     defaultLocale: (process.env.NEXT_PUBLIC_DEFAULT_LOCALE as SupportedLanguage) || 'en',
     social: getSocialConfig(),
   },

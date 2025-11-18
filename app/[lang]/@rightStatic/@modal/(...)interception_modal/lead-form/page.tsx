@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 import { useState, useEffect } from "react";
 import { X, CheckCircle, Send } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { getModalTranslation } from "@/app/@rightStatic/(_INTERCEPTION_MODAL)/(_shared)/(_translations)/get-modal-translation";
+import { getModalTranslation } from "@/app/[lang]/@rightStatic/(_INTERCEPTION_MODAL)/(_shared)/(_translations)/get-modal-translation";
 
 type FormErrors = {
   name?: string[];

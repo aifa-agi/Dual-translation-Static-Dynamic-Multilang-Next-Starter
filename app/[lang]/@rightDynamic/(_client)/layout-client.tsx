@@ -3,7 +3,7 @@
 
 import { useEffect } from "react"
 import { useRouter, usePathname } from "next/navigation"
-import { initAuthState, useAuth } from "@/app/@left/(_AUTH)/login/(_client)/(_hooks)/use-auth-state"
+import { initAuthState, useAuth } from "@/app/[lang]/@left/(_AUTH)/login/(_client)/(_hooks)/use-auth-state"
 
 interface RightDynamicLayoutClientProps {
     children: React.ReactNode

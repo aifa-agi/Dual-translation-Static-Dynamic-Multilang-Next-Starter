@@ -13,7 +13,7 @@ import {
 } from "@/components/ui/field"
 import { Input } from "@/components/ui/input"
 import { cn } from "@/lib/utils"
-import { useAuth } from "@/app/@left/(_AUTH)/login/(_client)/(_hooks)/use-auth-state"
+import { useAuth } from "@/app/[lang]/@left/(_AUTH)/login/(_client)/(_hooks)/use-auth-state"
 import { loginAction } from "../../(_server)/actions/auth"
 interface LoginFormProps extends React.ComponentProps<"form"> {
   onSuccess?: () => void

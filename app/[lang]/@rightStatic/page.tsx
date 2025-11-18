@@ -1,9 +1,9 @@
-// app/@rightStatic/page.tsx
+// app/[lang]/@rightStatic/page.tsx
 
 import { constructMetadata } from '@/lib/construct-metadata';
 import { appConfig } from '@/config/app-config';
 import type { Metadata } from 'next';
-import ArticleContent from '@/app/@rightStatic/(_PUBLIC)/(_HOME)/home/(_components)/article-content';
+import ArticleContent from '@/app/[lang]/@rightStatic/(_PUBLIC)/(_HOME)/home/(_components)/article-content';
 import {  SeoPageWrapper } from '@/components/seo-page-wrapper/seo-page-wrapper';
 import { StructuredDataWrapper } from '@/components/seo-page-wrapper/structured-data-wrapper';
 import { HOME_PAGE_CONFIG } from './(_PUBLIC)/(_HOME)/home/page';
@@ -126,14 +126,7 @@ export default function Page() {
 
       {/* UI Wrapper Component */}
       <SeoPageWrapper config={HOME_PAGE_CONFIG}>
-        <section className="mb-12" aria-labelledby="top-features-section">
-          <h2 id="top-features-section" className="text-2xl font-bold tracking-tight mb-2">
-            Lighthouse Performance Highlights
-          </h2>
-          <Card className='p-4'>
-            <Image src={"/images/parallel-routing-aifa.png"} alt="images/seo-research-aifa" width={800} height={450} priority={false} className='w-full'/>
-          </Card>
-        </section>
+        
         <ArticleContent />
         <AifaRoadmap items={AIFA_ROADMAP_ITEMS} />
       </SeoPageWrapper>

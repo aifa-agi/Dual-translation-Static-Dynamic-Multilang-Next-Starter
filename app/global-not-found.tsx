@@ -8,7 +8,6 @@ import { cn } from "@/lib/utils";
 import { ActiveThemeProvider } from "@/providers/active-theme";
 import { ThemeProvider } from "@/providers/theme-provider";
 import { Analytics } from "@vercel/analytics/next";
-import Script from "next/script"; // ✅ ДОБАВЛЕНО: Импорт Script компонента
 import { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
@@ -74,12 +73,7 @@ export default function GlobalNotFoundPage() {
           }}
         />
 
-        {/* ✅ ИСПРАВЛЕНО: Используется компонент Script вместо встроенного скрипта */}
-        <Script
-          src="/register-sw.js"
-          strategy="beforeInteractive"
-          async={false}
-        />
+      
       </head>
       <body
         className={cn(
