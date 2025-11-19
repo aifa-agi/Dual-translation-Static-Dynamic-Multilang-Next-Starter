@@ -42,7 +42,7 @@ export async function generateMetadata({
 
   // Validate language parameter
   if (!SUPPORTED_LANGUAGES.includes(lang as SupportedLanguage)) {
-    return {};
+     notFound();;
   }
 
   const languageLabel = getLanguageLabel(lang as SupportedLanguage);
