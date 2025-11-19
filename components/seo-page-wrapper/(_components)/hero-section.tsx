@@ -2,6 +2,7 @@
 import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
+import { SupportedLanguage } from '@/config/translations.config';
 
 /**
  * Type definitions for Hero Section
@@ -43,31 +44,14 @@ export type HeroConfig = {
  * Props for HeroSection component
  */
 interface HeroSectionProps {
+   lang: SupportedLanguage
   config: HeroConfig;
   show?: boolean;
   variant: "landing" | "blog" | "feature"
 }
 
-/**
- * HeroSection Component - Server Component
- * 
- * Responsive hero section with explicit breakpoint handling:
- * 
- * Breakpoint Strategy:
- * - xs (0-640px):    Single column + Horizontal image (16:9)
- * - sm (640-768px):  Single column + Horizontal image (16:9)
- * - md (768-1024px): Two columns + Vertical image (9:16)
- * - lg (1024-1280px): Single column + Horizontal image (16:9)
- * - xl (1280-1536px): Two columns + Vertical image (9:16)
- * - 2xl (1536px+):   Two columns + Square image (1:1)
- * 
- * This component uses CSS media queries (Tailwind breakpoints) for responsive behavior,
- * making it fully compatible with React Server Components (no client-side JS needed).
- * 
- * @param config - Hero section configuration object
- * @param show - Optional visibility flag, defaults to true
- */
-export function HeroSection({ config, show = true, variant }: HeroSectionProps) {
+
+export function HeroSection({ config, show = true, variant, lang }: HeroSectionProps) {
   if (!show) {
     return null;
   }
@@ -135,7 +119,7 @@ export function HeroSection({ config, show = true, variant }: HeroSectionProps) 
               {cta.primary.text}
             </Link>
             <Link
-              href={cta.secondary.href}
+              href={`/${lang}${cta.secondary.href}`}
               className="inline-flex items-center justify-center rounded-lg border border-border px-5 py-2.5 text-sm font-medium text-foreground hover:bg-muted focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary transition-colors"
 
             >
@@ -212,7 +196,7 @@ export function HeroSection({ config, show = true, variant }: HeroSectionProps) 
               {cta.primary.text}
             </Link>
             <Link
-              href={cta.secondary.href}
+            href={`/${lang}${cta.secondary.href}`}
               className="inline-flex items-center justify-center rounded-lg border border-border px-5 py-2.5 text-sm font-medium text-foreground hover:bg-muted focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary transition-colors"
 
             >

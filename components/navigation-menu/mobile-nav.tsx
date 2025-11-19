@@ -150,11 +150,11 @@ export function MobileNav({ categories, className, lang }: MobileNavProps) {
           {/* 1) Home section (always first, independent of categories) */}
           <div className="flex flex-col gap-4">
             <Link
-              href="/"
+              href={`/${lang}/`}
               onClick={handleCloseMenu}
               className={cn(
                 "flex flex-col justify-start rounded-md bg-gradient-to-b from-muted/50 to-muted p-4 no-underline outline-none transition-colors hover:bg-accent",
-                pathname === "/" && "bg-accent"
+                pathname === `/${lang}/` && "bg-accent"
               )}
             >
               <div className="mb-3 flex justify-center">
@@ -182,7 +182,7 @@ export function MobileNav({ categories, className, lang }: MobileNavProps) {
               Chat
             </div>
             <div className="flex">
-              <AnimatedAIButton onNavigate={handleCloseMenu} />
+              <AnimatedAIButton onNavigate={handleCloseMenu} lang={lang}/>
             </div>
           </div>
 

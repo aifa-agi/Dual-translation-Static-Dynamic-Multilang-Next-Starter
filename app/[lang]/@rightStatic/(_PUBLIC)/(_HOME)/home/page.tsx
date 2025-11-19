@@ -10,6 +10,7 @@ import Image from 'next/image';
 import { Card } from '@/components/ui/card';
 import { AIFA_ROADMAP_ITEMS } from '@/config/pages-config/aifa-roadmap-data';
 import { AifaRoadmap } from '@/components/aifa-roadmap';
+import { SupportedLanguage } from '@/config/translations.config';
 
 // ============================================================================
 // META CONFIGURATION
@@ -134,7 +135,7 @@ export const HOME_PAGE_CONFIG: PageWrapperConfig = {
       },
       secondary: {
         text: 'Check Modal',
-        href: '/#',
+        href: "/interception_modal",
       },
     },
   },
@@ -194,7 +195,12 @@ export const HOME_PAGE_CONFIG: PageWrapperConfig = {
 // PAGE COMPONENT (Server Component)
 // ============================================================================
 
-export default function Page() {
+export  default async function Page({
+  params
+}: {
+  params: Promise<{ lang: SupportedLanguage }>
+}) {
+  const { lang } = await params;
   // Generate JSON-LD schemas in page.tsx
   const breadcrumbJsonLd = buildBreadcrumbJsonLd(HOME_PAGE_CONFIG.breadcrumbs);
   const faqJsonLd = buildFaqJsonLd(HOME_PAGE_CONFIG.faqs ?? []);
@@ -208,7 +214,7 @@ export default function Page() {
       <StructuredDataWrapper data={websiteJsonLd} />
 
       {/* UI Wrapper Component */}
-      <SeoPageWrapper config={HOME_PAGE_CONFIG}>
+      <SeoPageWrapper config={HOME_PAGE_CONFIG} lang={lang}>
          <section className="mb-12" aria-labelledby="top-features-section">
           <h2 id="top-features-section" className="text-2xl font-bold tracking-tight mb-2">
             Lighthouse Performance Highlights

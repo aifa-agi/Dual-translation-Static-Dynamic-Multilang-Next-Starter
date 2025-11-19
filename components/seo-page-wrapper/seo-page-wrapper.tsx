@@ -9,9 +9,11 @@ import { BlockquoteSection, type BlockquoteConfig } from './(_components)/blockq
 
 import { TopFeaturesSection, type TopFeatureItem } from './(_components)/top-features-section';
 import { AnimatedAIButton } from '@/components/animated-ai-button';
+import { SupportedLanguage } from '@/config/translations.config';
 
 // Configuration type for SEO Page Wrapper
 export type PageWrapperConfig = {
+  
   // Spacing configuration
   topSpacing?: number;
   
@@ -43,11 +45,12 @@ export type PageWrapperConfig = {
 };
 
 interface SeoPageWrapperProps {
+  lang: SupportedLanguage
   config: PageWrapperConfig;
   children: React.ReactNode;
 }
 
-export function SeoPageWrapper({ config, children }: SeoPageWrapperProps) {
+export function SeoPageWrapper({ config, children,lang }: SeoPageWrapperProps) {
   const {
     topSpacing = 80,
     breadcrumbs,
@@ -82,7 +85,7 @@ export function SeoPageWrapper({ config, children }: SeoPageWrapperProps) {
         <TechBadges badges={badges} show={showBadges} />
 
         {/* Hero Section */}
-        {hero && <HeroSection config={hero} show={showHero} variant={variant } />}
+        {hero && <HeroSection config={hero} show={showHero} variant={variant } lang={lang}/>}
 
         {/* Top Features Section */}
         {topFeatures && <TopFeaturesSection config={topFeatures} show={showTopFeatures} />}
@@ -90,7 +93,7 @@ export function SeoPageWrapper({ config, children }: SeoPageWrapperProps) {
         {/* Blockquote Section */}
         {blockquote && <BlockquoteSection config={blockquote} show={showBlockquote} />}
     
-        <AnimatedAIButton/>
+        <AnimatedAIButton lang={lang}/>
         
         {/* Page Content (children) */}
         <section className="mb-12">{children}</section>

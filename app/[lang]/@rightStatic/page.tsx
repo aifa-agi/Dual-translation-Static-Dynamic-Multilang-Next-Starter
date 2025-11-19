@@ -11,6 +11,7 @@ import { Card } from '@/components/ui/card';
 import Image from 'next/image';
 import { AIFA_ROADMAP_ITEMS } from '@/config/pages-config/aifa-roadmap-data';
 import { AifaRoadmap } from '@/components/aifa-roadmap';
+import { SupportedLanguage } from '@/config/translations.config';
 
 // ============================================================================
 // META CONFIGURATION
@@ -111,7 +112,12 @@ function buildWebSiteJsonLd() {
 // PAGE COMPONENT (Server Component)
 // ============================================================================
 
-export default function Page() {
+export default async function Page({
+  params
+}: {
+  params: Promise<{ lang: SupportedLanguage }>
+}) {
+  const { lang } = await params;
   // Generate JSON-LD schemas in page.tsx
   const breadcrumbJsonLd = buildBreadcrumbJsonLd(HOME_PAGE_CONFIG.breadcrumbs);
   const faqJsonLd = buildFaqJsonLd(HOME_PAGE_CONFIG.faqs ?? []);
@@ -125,7 +131,7 @@ export default function Page() {
       <StructuredDataWrapper data={websiteJsonLd} />
 
       {/* UI Wrapper Component */}
-      <SeoPageWrapper config={HOME_PAGE_CONFIG}>
+      <SeoPageWrapper config={HOME_PAGE_CONFIG} lang={lang}>
         
         <ArticleContent />
         <AifaRoadmap items={AIFA_ROADMAP_ITEMS} />

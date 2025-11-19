@@ -5,27 +5,18 @@ import React from "react"
 import Link from "next/link"
 import { useRouter } from "next/navigation"
 import { cn } from "@/lib/utils"
+import { SupportedLanguage } from "@/config/translations.config"
 
 interface AnimatedAIButtonProps {
+  lang: SupportedLanguage
   className?: string
   onClick?: () => void
   onNavigate?: () => void // New optional callback before navigation
 }
 
-/**
- * Animated AI button component
- * 
- * Branded button with gradient border animation used across the app.
- * Opens chat modal via intercepting route.
- * 
- * Features:
- * - Gradient border animation
- * - Sparkle icon animation
- * - Full-width responsive design
- * - Click handler support for closing modals/menus
- * - Pre-navigation callback for cleanup actions
- */
+
 export function AnimatedAIButton({
+  lang,
   className,
   onClick,
   onNavigate,
@@ -43,7 +34,10 @@ export function AnimatedAIButton({
       
       // Navigate after callback
       setTimeout(() => {
-        router.push("/interception_chat")
+        
+        // router.push(`/interception_chat`)
+        router.push(`/${lang}/interception_chat`)
+        
       }, 0)
     }
     // If no onNavigate, Link handles navigation normally
@@ -52,7 +46,7 @@ export function AnimatedAIButton({
   return (
     <div className="flex lg:hidden w-full">
     <Link
-      href="/interception_chat"
+      href={`/${lang}/interception_chat`}
       scroll={false}
       onClick={handleClick}
       className={cn(

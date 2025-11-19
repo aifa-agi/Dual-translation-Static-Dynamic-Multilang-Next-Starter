@@ -134,6 +134,7 @@ export default async function LanguageLayout(
               {/* STATIC CONTENT - Main scrollable area */}
               <main className="absolute inset-0 overflow-y-auto hide-scrollbar">
                 {rightStatic}
+                  
               </main>
 
               {/* DYNAMIC CONTENT - Overlays (modals, intercepted routes) */}
@@ -141,7 +142,6 @@ export default async function LanguageLayout(
             </div>
           </div>
         </div>
-
         <AifaFooter />
       </div>
     </>
