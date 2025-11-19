@@ -17,7 +17,7 @@ import { useRouter } from "next/navigation"
 import { LoginForm } from "@/app/[lang]/@left/(_AUTH)/login/(_client)/(_ui_components)/auth-login-form"
 import { logoutAction } from "@/app/[lang]/@left/(_AUTH)/login/(_server)/actions/auth"
 import { initAuthState, useAuth } from "@/app/[lang]/@left/(_AUTH)/login/(_client)/(_hooks)/use-auth-state"
-import { SupportedLanguage } from "@/config/translations.config"
+import { SupportedLanguage } from "@/config/translations/translations.config"
 
 interface AuthButtonProps {
   initialAuth: boolean

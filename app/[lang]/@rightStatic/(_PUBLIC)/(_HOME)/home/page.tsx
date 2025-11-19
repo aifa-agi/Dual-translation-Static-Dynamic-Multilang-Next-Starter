@@ -1,4 +1,4 @@
-// app/@rightStatic/page.tsx
+// app/[lang]/@rightStatic/(_PUBLIC)/(_HOME)/home/page.tsx
 
 import { constructMetadata } from '@/lib/construct-metadata';
 import { appConfig } from '@/config/app-config';
@@ -10,14 +10,14 @@ import Image from 'next/image';
 import { Card } from '@/components/ui/card';
 import { AIFA_ROADMAP_ITEMS } from '@/config/pages-config/aifa-roadmap-data';
 import { AifaRoadmap } from '@/components/aifa-roadmap';
-import { SupportedLanguage } from '@/config/translations.config';
+import { SupportedLanguage } from '@/config/translations/translations.config';
 
 // ============================================================================
 // META CONFIGURATION
 // ============================================================================
 
 export const metadata: Metadata = constructMetadata({
-  pathname: '/',
+  pathname: '/home',
 });
 
 // ============================================================================

@@ -5,7 +5,7 @@ import React from "react"
 import Link from "next/link"
 import { useRouter } from "next/navigation"
 import { cn } from "@/lib/utils"
-import { SupportedLanguage } from "@/config/translations.config"
+import { SupportedLanguage } from "@/config/translations/translations.config"
 
 interface AnimatedAIButtonProps {
   lang: SupportedLanguage

@@ -1,5 +1,5 @@
 import { MetadataRoute } from "next";
-import { SUPPORTED_LANGUAGES } from "@/config/translations.config";
+import { SUPPORTED_LANGUAGES } from "@/config/translations/translations.config";
 import { getContentData } from "@/config/menu/content-data";
 import { appConfig } from "@/config/app-config";
 import { PageData } from "@/types/page-types";

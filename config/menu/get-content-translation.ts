@@ -4,7 +4,7 @@ import translations from "./content-translation.json";
 import {
   DEFAULT_LANGUAGE,
   SupportedLanguage,
-} from "@/config/translations.config";
+} from "@/config/translations/translations.config";
 
 type TranslationEntry = {
   [K in SupportedLanguage]?: string;

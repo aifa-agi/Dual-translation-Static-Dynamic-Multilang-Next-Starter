@@ -9,7 +9,7 @@ import { BlockquoteSection, type BlockquoteConfig } from './(_components)/blockq
 
 import { TopFeaturesSection, type TopFeatureItem } from './(_components)/top-features-section';
 import { AnimatedAIButton } from '@/components/animated-ai-button';
-import { SupportedLanguage } from '@/config/translations.config';
+import { SupportedLanguage } from '@/config/translations/translations.config';
 
 // Configuration type for SEO Page Wrapper
 export type PageWrapperConfig = {

@@ -1,4 +1,26 @@
-// config/translations.config.ts
+// config/translations/translations.config.ts
+
+import { ALL_LANGUAGE_METADATA } from "./language-metadata";
+
+// ============================================================================
+// LANGUAGE METADATA - Complete database of all possible languages
+// ============================================================================
+
+/**
+ * Language metadata type - contains all display information for a language
+ */
+export type LanguageMetadata = {
+  code: string;         // ISO 639-1 code (e.g., 'en', 'ru')
+  flag: string;         // Emoji flag
+  nativeName: string;   // Name in the language itself
+  englishName: string;  // Name in English
+};
+
+
+
+// ============================================================================
+// SUPPORTED LANGUAGES PARSER
+// ============================================================================
 
 const parseSupportedLanguages = (): readonly string[] => {
   const envLangs = process.env.NEXT_PUBLIC_SUPPORTED_LANGUAGES?.trim();
@@ -77,6 +99,10 @@ export const DEFAULT_LANGUAGE: SupportedLanguage = (() => {
   return envLang as SupportedLanguage;
 })();
 
+// ============================================================================
+// UTILITY FUNCTIONS
+// ============================================================================
+
 /**
  * Validate if a string is a supported language code
  */
@@ -85,33 +111,45 @@ export function isSupportedLanguage(lang: string): lang is SupportedLanguage {
 }
 
 /**
- * Get language label for UI display
+ * Get language label for UI display (English name)
  */
 export function getLanguageLabel(lang: SupportedLanguage): string {
-  const labels: Record<string, string> = {
-    en: 'English',
-    ru: 'Русский',
-    es: 'Español',
-    de: 'Deutsch',
-    fr: 'Français',
-    it: 'Italiano',
-  };
-
-  return labels[lang] || lang.toUpperCase();
+  const metadata = ALL_LANGUAGE_METADATA[lang];
+  return metadata?.englishName || lang.toUpperCase();
 }
 
 /**
- * Get language native name
+ * Get language native name (in its own language)
  */
 export function getLanguageNativeName(lang: SupportedLanguage): string {
-  const names: Record<string, string> = {
-    en: 'English',
-    ru: 'Русский',
-    es: 'Español',
-    de: 'Deutsch',
-    fr: 'Français',
-    it: 'Italiano',
-  };
+  const metadata = ALL_LANGUAGE_METADATA[lang];
+  return metadata?.nativeName || lang;
+}
 
-  return names[lang] || lang;
+/**
+ * Get metadata for a specific language
+ * Returns undefined if language metadata is not defined
+ */
+export function getLanguageMetadata(lang: string): LanguageMetadata | undefined {
+  return ALL_LANGUAGE_METADATA[lang];
+}
+
+/**
+ * Get all available languages with full metadata
+ * Only returns languages that are:
+ * 1. Enabled in NEXT_PUBLIC_SUPPORTED_LANGUAGES
+ * 2. Have metadata defined in ALL_LANGUAGE_METADATA
+ */
+export function getAvailableLanguages(): LanguageMetadata[] {
+  return SUPPORTED_LANGUAGES
+    .map((code) => ALL_LANGUAGE_METADATA[code])
+    .filter((metadata): metadata is LanguageMetadata => metadata !== undefined);
+}
+
+/**
+ * Get flag emoji for a language
+ */
+export function getLanguageFlag(lang: SupportedLanguage): string {
+  const metadata = ALL_LANGUAGE_METADATA[lang];
+  return metadata?.flag || '🌐';
 }

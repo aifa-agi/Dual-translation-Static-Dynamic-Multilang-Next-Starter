@@ -11,7 +11,7 @@ import { Card } from '@/components/ui/card';
 import Image from 'next/image';
 import { AIFA_ROADMAP_ITEMS } from '@/config/pages-config/aifa-roadmap-data';
 import { AifaRoadmap } from '@/components/aifa-roadmap';
-import { SupportedLanguage } from '@/config/translations.config';
+import { SupportedLanguage } from '@/config/translations/translations.config';
 
 // ============================================================================
 // META CONFIGURATION

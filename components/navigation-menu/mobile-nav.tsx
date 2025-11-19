@@ -16,7 +16,7 @@ import {
 import { MenuCategory } from "@/types/menu-types"
 import { appConfig } from "@/config/app-config"
 import { AnimatedAIButton } from "@/components/animated-ai-button"
-import { SupportedLanguage } from "@/config/translations.config"
+import { SupportedLanguage } from "@/config/translations/translations.config"
 
 interface MobileNavProps {
   categories: MenuCategory[]

@@ -17,7 +17,7 @@ import {
 } from "@/components/ui/navigation-menu"
 import { MenuCategory } from "@/types/menu-types"
 import Image from "next/image"
-import { SupportedLanguage } from "@/config/translations.config"
+import { SupportedLanguage } from "@/config/translations/translations.config"
 
 interface MainNavProps {
   items: MenuCategory[]

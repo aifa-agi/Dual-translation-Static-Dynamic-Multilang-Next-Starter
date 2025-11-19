@@ -1,5 +1,5 @@
 //config/app-config.ts
-import { SupportedLanguage } from './translations.config';
+import { SupportedLanguage } from './translations/translations.config';
 
 const getSiteUrl = (): string => {
   if (typeof window === 'undefined') {

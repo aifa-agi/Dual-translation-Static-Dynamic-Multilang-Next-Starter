@@ -1,7 +1,7 @@
 // middleware.ts 
 
 import { NextRequest, NextResponse } from 'next/server';
-import { SUPPORTED_LANGUAGES, DEFAULT_LANGUAGE } from './config/translations.config';
+import { SUPPORTED_LANGUAGES, DEFAULT_LANGUAGE } from './config/translations/translations.config';
 
 const LOCALE_COOKIE_NAME = 'NEXT_LOCALE';
 

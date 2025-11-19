@@ -1,7 +1,7 @@
 //app/@left/default.tsx
 import { Button } from "@/components/ui/button";
 import { appConfig, getChatbotIllustration } from "@/config/app-config";
-import { SupportedLanguage } from "@/config/translations.config";
+import { SupportedLanguage } from "@/config/translations/translations.config";
 import Image from "next/image";
 import Link from "next/link";
 

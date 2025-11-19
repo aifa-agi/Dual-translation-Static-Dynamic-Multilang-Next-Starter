@@ -7,7 +7,7 @@ import {
   DEFAULT_LANGUAGE,
   type SupportedLanguage,
   getLanguageLabel,
-} from '@/config/translations.config';
+} from '@/config/translations/translations.config';
 import { appConfig } from '@/config/app-config';
 import { OnlineStatusProvider } from '@/providers/online-status-provider';
 import AifaFooter from '@/components/aifa-footer';

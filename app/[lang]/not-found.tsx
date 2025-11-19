@@ -2,7 +2,7 @@
 
 import { Button } from "@/components/ui/button";
 import { getErrorIllustration } from "@/config/app-config";
-import { DEFAULT_LANGUAGE } from "@/config/translations.config";
+import { DEFAULT_LANGUAGE } from "@/config/translations/translations.config";
 import Link from "next/link";
 import Image from "next/image";
 

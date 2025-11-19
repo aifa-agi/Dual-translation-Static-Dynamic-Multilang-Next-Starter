@@ -3,7 +3,7 @@
 import { appConfig, getOgImagePath } from '@/config/app-config';
 import type { Metadata } from 'next';
 import type { ContentType, AuthorConfig } from '@/config/app-config';
-import { SUPPORTED_LANGUAGES } from '@/config/translations.config';
+import { SUPPORTED_LANGUAGES } from '@/config/translations/translations.config';
 
 export type { AuthorConfig } from '@/config/app-config';
 

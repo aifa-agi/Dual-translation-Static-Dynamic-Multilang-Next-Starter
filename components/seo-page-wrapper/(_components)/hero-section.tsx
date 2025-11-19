@@ -2,7 +2,7 @@
 import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { SupportedLanguage } from '@/config/translations.config';
+import { SupportedLanguage } from '@/config/translations/translations.config';
 
 /**
  * Type definitions for Hero Section

@@ -2,7 +2,7 @@
 
 import { isAuthenticated } from "@/app/[lang]/@left/(_AUTH)/login/(_server)/actions/auth"
 import { SiteHeaderClient } from "./site-header-client"
-import { SupportedLanguage } from "@/config/translations.config"
+import { SupportedLanguage } from "@/config/translations/translations.config"
 
 /**
  * Site header - Server Component
