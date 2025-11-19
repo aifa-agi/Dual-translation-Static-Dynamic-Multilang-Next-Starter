@@ -14,6 +14,7 @@ import {
 import { Languages } from "lucide-react";
 import { useRouter, usePathname } from "next/navigation";
 import { getAvailableLanguages } from "@/config/translations/translations.config";
+import { Input } from "../ui/input";
 
 interface LanguageSwitcherProps {
   currentLang: string;
@@ -71,12 +72,12 @@ const LanguageSwitcher: React.FC<LanguageSwitcherProps> = ({
 
       <DropdownMenuContent className="w-64 max-h-64 overflow-auto p-2">
         
-        <input
+        <Input
           type="text"
           value={filter}
           autoFocus
           onChange={(e) => setFilter(e.target.value)}
-          placeholder="Search language..."
+          placeholder=" Search language..."
           className="input-bordered input mb-2 w-full"
         />
         <DropdownMenuSeparator />

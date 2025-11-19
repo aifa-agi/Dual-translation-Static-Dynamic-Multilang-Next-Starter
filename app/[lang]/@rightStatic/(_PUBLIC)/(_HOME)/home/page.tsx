@@ -16,8 +16,31 @@ import { SupportedLanguage } from '@/config/translations/translations.config';
 // META CONFIGURATION
 // ============================================================================
 
+// ============================================================================
+// META CONFIGURATION
+// ============================================================================
+
 export const metadata: Metadata = constructMetadata({
+  title: `AI SEO Next.js Starter with Advanced App Router — ${appConfig.short_name}`,
+  description:
+    'Production-ready template combining AI chat capabilities with comprehensive advanced routing tutorial. Built with focus on maximum SEO optimization, PWA functionality, and hybrid rendering (Static + Dynamic generation) with role-based access control.',
+  image: '/images/aifai_white_frame_logo.png',
   pathname: '/home',
+  locale: 'en',
+  contentType: 'website',
+  noIndex: false,
+  noFollow: false,
+  author: {
+    name: 'Roman Bolshiyanov (Armstrong)',
+    email: 'bolshiyanov@gmail.com',
+    url: 'https://t.me/bolshiyanov',
+    image: '/images/aifai_white_frame_logo.png',
+    bio: 'AI/Web3/Next Architect delivering business-ready solutions that orchestrate frontend, backend, and go-to-market.',
+    jobTitle: 'AI/Web3/Next Architect',
+    twitter: undefined,
+    linkedin: 'roman-bolshiyanov',
+    facebook: undefined,
+  },
 });
 
 // ============================================================================
@@ -86,15 +109,29 @@ function buildWebSiteJsonLd() {
   };
 }
 
+
+
+// ============================================================================
+// PAGE COMPONENT (Server Component)
+// ============================================================================
+
+export  default async function Page({
+  params
+}: {
+  params: Promise<{ lang: SupportedLanguage }>
+}) {
+  const { lang } = await params;
+  
+  
 // ============================================================================
 // PAGE CONFIGURATION
 // ============================================================================
 
-export const HOME_PAGE_CONFIG: PageWrapperConfig = {
+const HOME_PAGE_CONFIG: PageWrapperConfig = {
   topSpacing: 80,
   variant: "landing",
   breadcrumbs: [
-    { name: 'Home', path: '/' },
+    { name: 'Home', path: `/${lang}/home` },
   ],
 
   badges: [
@@ -191,17 +228,6 @@ export const HOME_PAGE_CONFIG: PageWrapperConfig = {
   showFaq: true,
 };
 
-// ============================================================================
-// PAGE COMPONENT (Server Component)
-// ============================================================================
-
-export  default async function Page({
-  params
-}: {
-  params: Promise<{ lang: SupportedLanguage }>
-}) {
-  const { lang } = await params;
-  // Generate JSON-LD schemas in page.tsx
   const breadcrumbJsonLd = buildBreadcrumbJsonLd(HOME_PAGE_CONFIG.breadcrumbs);
   const faqJsonLd = buildFaqJsonLd(HOME_PAGE_CONFIG.faqs ?? []);
   const websiteJsonLd = buildWebSiteJsonLd();
