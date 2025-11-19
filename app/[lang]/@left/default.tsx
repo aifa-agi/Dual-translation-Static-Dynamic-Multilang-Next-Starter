@@ -1,13 +1,19 @@
 //app/@left/default.tsx
 import { Button } from "@/components/ui/button";
 import { appConfig, getChatbotIllustration } from "@/config/app-config";
+import { SupportedLanguage } from "@/config/translations.config";
 import Image from "next/image";
 import Link from "next/link";
 
 export const dynamic = 'force-static';
 export const revalidate = false;
 
-export default function DefaultPage() {
+export default async function DefaultPage({
+  params
+}: {
+  params: Promise<{ lang: SupportedLanguage }>
+}) {
+  const { lang } = await params;
   // Get illustration paths
   const darkPath = getChatbotIllustration("dark");
   const lightPath = getChatbotIllustration("light");
@@ -50,7 +56,7 @@ export default function DefaultPage() {
       </div>
 
       {/* CTA Button */}
-      <Link href="/chat" className="text-xl w-full mt-auto mb-4">
+      <Link href={`/${lang}/chat`} className="text-xl w-full mt-auto mb-4">
         <Button className="w-full">{appConfig.chatBrand}</Button>
       </Link>
     </div>

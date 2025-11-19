@@ -1,24 +1,16 @@
 //app/@left/(_AUTH)/login/(_client)/(_ui_components)/auth-login-form.tsx
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { LoginForm } from "./(_client)/(_ui_components)/auth-login-form"
+import { SupportedLanguage } from "@/config/translations.config";
 
 
-/**
- * Desktop login page for left panel
- * 
- * Displayed in the left ResizablePanel on desktop screens when user
- * navigates to /login route. Uses the shared LoginForm component.
- * 
- * Features:
- * - Server Component (no client-side JS needed for rendering)
- * - Progressive enhancement (works without JS)
- * - Automatic redirect to /chat after successful login
- * - Consistent styling with Card components
- * - Centered layout with responsive padding
- * 
- * Route: /login (rendered in @left slot)
- */
-export default function LoginPage() {
+
+export default async function LoginPage({
+  params
+}: {
+  params: Promise<{ lang: SupportedLanguage }>
+}) {
+  const { lang } = await params;
   return (
     <div className="flex min-h-svh w-full items-center justify-center p-6 md:p-10">
       <div className="w-full max-w-sm">
@@ -30,14 +22,8 @@ export default function LoginPage() {
             </CardDescription>
           </CardHeader>
           <CardContent>
-            {/* 
-              LoginForm handles:
-              - Server Action submission
-              - Loading states
-              - Error/success messages
-              - Auto redirect to /chat after login
-            */}
-            <LoginForm/>
+           
+            <LoginForm lang={lang}/>
           </CardContent>
         </Card>
       </div>

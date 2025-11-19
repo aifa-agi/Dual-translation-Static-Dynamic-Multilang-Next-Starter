@@ -17,28 +17,14 @@ import { useRouter } from "next/navigation"
 import { LoginForm } from "@/app/[lang]/@left/(_AUTH)/login/(_client)/(_ui_components)/auth-login-form"
 import { logoutAction } from "@/app/[lang]/@left/(_AUTH)/login/(_server)/actions/auth"
 import { initAuthState, useAuth } from "@/app/[lang]/@left/(_AUTH)/login/(_client)/(_hooks)/use-auth-state"
+import { SupportedLanguage } from "@/config/translations.config"
 
 interface AuthButtonProps {
   initialAuth: boolean
+  lang: SupportedLanguage
 }
 
-/**
- * Authentication button for site header
- * 
- * Displays different UI based on:
- * - Authentication status (logged in vs logged out)
- * - Screen size (desktop vs mobile)
- * 
- * Features:
- * - Desktop: Link to /login page when logged out
- * - Mobile: Modal dialog with login form when logged out
- * - Both: Orange "Admin" button with logout when logged in
- * - Automatic redirect to /chat after successful login
- * - Syncs with global auth state
- * 
- * @param initialAuth - Initial authentication status from server
- */
-export function AuthButton({ initialAuth }: AuthButtonProps) {
+export function AuthButton({ initialAuth, lang }: AuthButtonProps) {
   const [open, setOpen] = React.useState(false)
   const isDesktop = useMediaQuery("(min-width: 1024px)")
   const { isAuthenticated, logout } = useAuth()
@@ -55,7 +41,7 @@ export function AuthButton({ initialAuth }: AuthButtonProps) {
     
     // Redirect to chat after 2 seconds
     setTimeout(() => {
-      router.push('/chat')
+      router.push(`/${lang}/chat`)
     }, 2000)
   }
 
@@ -87,40 +73,13 @@ export function AuthButton({ initialAuth }: AuthButtonProps) {
         size="sm"
         className="rounded-full bg-white text-black hover:bg-white/70 mr-2"
       >
-        <Link href="/login" className="flex items-center gap-1">
+        <Link href={`/${lang}/login`} className="flex items-center gap-1">
           Login
           <ArrowRight className="h-4 w-4" />
         </Link>
       </Button>
     )
   }
-
-  // Mobile unauthenticated - modal dialog with login form
-
-  /**
- * ⚠️ CRITICAL: Login Form Routing Restrictions
- * 
- * 🚫 DO NOT implement login forms using Next.js intercepting routes (@modal patterns)
- * 
- * Why this matters:
- * 🔐 OAuth providers (Google, GitHub, Facebook, etc.) require full page navigation
- * 🔄 OAuth redirect callbacks cannot function properly within intercepted routes
- * 🍪 Cookie-based session management needs complete request/response cycles
- * 🔒 Security tokens and state parameters must persist across redirects
- * 
- * ✅ CORRECT APPROACH:
- * - Use dedicated route pages: /login, /auth/signin
- * - Implement server-side redirects after authentication
- * - Handle OAuth callbacks on full page routes
- * 
- * ❌ AVOID:
- * - Modal-based login with intercepting routes
- * - Client-side only authentication flows
- * - Mixing intercepting routes with OAuth providers
- * 
- * @see https://nextjs.org/docs/app/building-your-application/authentication
- * @see https://next-auth.js.org/configuration/pages
- */
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
@@ -139,7 +98,7 @@ export function AuthButton({ initialAuth }: AuthButtonProps) {
           Enter your email below to login to your account
         </DialogDescription>
 
-        <LoginForm onSuccess={handleLoginSuccess} />
+        <LoginForm onSuccess={handleLoginSuccess} lang={lang}/>
       </DialogContent>
     </Dialog>
   )

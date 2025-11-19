@@ -1,4 +1,4 @@
-//app/@left/(_AUTH)/login/(_server)/actions/auth.ts
+//aapp/[lang]/@left/(_AUTH)/login/(_client)/(_ui_components)/auth-login-form.tsx
 "use client"
 
 import * as React from "react"
@@ -15,26 +15,15 @@ import { Input } from "@/components/ui/input"
 import { cn } from "@/lib/utils"
 import { useAuth } from "@/app/[lang]/@left/(_AUTH)/login/(_client)/(_hooks)/use-auth-state"
 import { loginAction } from "../../(_server)/actions/auth"
+import { SupportedLanguage } from "@/config/translations.config"
 interface LoginFormProps extends React.ComponentProps<"form"> {
   onSuccess?: () => void
+  lang: SupportedLanguage 
 }
 
-/**
- * Reusable login form component
- * 
- * Works with Server Actions for progressive enhancement.
- * Can be used in both modal dialogs (mobile) and full pages (desktop).
- * 
- * Features:
- * - Progressive enhancement (works without JS)
- * - Server Actions for form handling
- * - Loading states and error messages
- * - Automatic redirect to /chat after login
- * - Global state synchronization
- * 
- * @param onSuccess - Optional callback after successful login (for modal close)
- */
+
 export function LoginForm({ 
+  lang,
   className, 
   onSuccess,
   ...props 
@@ -44,22 +33,20 @@ export function LoginForm({
   const router = useRouter()
 
   // Handle successful authentication
-  React.useEffect(() => {
+ React.useEffect(() => {
     if (state?.success) {
-      // Update global authentication state
       login()
       
-      // Call success callback if provided (for modal)
       if (onSuccess) {
         onSuccess()
       } else {
-        // If no callback (desktop page), redirect after 2 seconds
-        setTimeout(() => {
-          router.push('/chat')
-        }, 2000)
+        if(lang) {setTimeout(() => {
+          router.push(`/${lang}/chat`) 
+        }, 2000)}
+        
       }
     }
-  }, [state, login, onSuccess, router])
+  }, [state, login, onSuccess, router, lang]) 
 
   return (
     <form 

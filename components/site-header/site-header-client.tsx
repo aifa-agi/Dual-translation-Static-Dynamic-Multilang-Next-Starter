@@ -53,7 +53,7 @@ export function SiteHeaderClient({ initialAuth, lang }: SiteHeaderClientProps) {
     initAuthState(initialAuth)
   }, [initialAuth])
 
-
+if(!lang) return null
   return (
     <header className="fixed inset-x-0 top-0 z-100">
       <div className="container px-6 mt-4">
@@ -73,7 +73,7 @@ export function SiteHeaderClient({ initialAuth, lang }: SiteHeaderClientProps) {
                   <span className="inline-block text-sm font-semibold text-white md:text-base">
                     {appConfig.short_name}
                   </span>
-                </Link> : <Link href="/" className="flex items-center gap-2">
+                </Link> : <Link href={`/${lang}/`} className="flex items-center gap-2">
                   <Image
                     src={appConfig.logo}
                     alt={`${appConfig.name} image`}
@@ -111,7 +111,7 @@ export function SiteHeaderClient({ initialAuth, lang }: SiteHeaderClientProps) {
 
               {!isAuthenticated && shouldShowCloseChat ? (
                 <MobailCloseChatButton />) : (
-                <AuthButton initialAuth={initialAuth} />)}
+                <AuthButton initialAuth={initialAuth} lang={lang}/>)}
 
               {/* Mobile navigation - hidden when authenticated */}
               {!isAuthenticated && (
