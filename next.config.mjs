@@ -6,15 +6,6 @@ const DEFAULT_LANGUAGE = process.env.NEXT_PUBLIC_DEFAULT_LOCALE || 'en';
 const nextConfig = {
   turbopack: {},
 
-  redirects: async () => {
-    return [
-      {
-        source: '/',
-        destination: `/${DEFAULT_LANGUAGE}`,
-        permanent: true, // Must be boolean true or false
-      },
-    ];
-  },
  
 
   async headers() {
