@@ -56,12 +56,12 @@ const LanguageSwitcher: React.FC<LanguageSwitcherProps> = ({
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <Button
-          variant={variant === "desktop" ? "outline" : "ghost"}
+          variant="outline"
           size="sm"
           className={
             variant === "desktop"
-              ? "gap-2"
-              : "h-8 text-white/70 shadow-none hover:bg-white/10 hover:text-white"
+              ? "gap-2 h-9"
+              : "h-9 mr-2 text-white/70 shadow-none hover:bg-white/10 hover:text-white rounded-full"
           }
           aria-label="Select language"
         >
@@ -78,7 +78,6 @@ const LanguageSwitcher: React.FC<LanguageSwitcherProps> = ({
           autoFocus
           onChange={(e) => setFilter(e.target.value)}
           placeholder=" Search language..."
-          className="input-bordered input mb-2 w-full"
         />
         <DropdownMenuSeparator />
 
