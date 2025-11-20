@@ -10,7 +10,7 @@ import {
 } from '@/config/translations/translations.config';
 import { appConfig } from '@/config/app-config';
 import { OnlineStatusProvider } from '@/providers/online-status-provider';
-import AifaFooter from '@/components/aifa-footer';
+import AifaFooter from '@/components/aifa-footer/aifa-footer';
 import { SiteHeader } from '@/components/site-header/site-header-wrapper';
 
 // ============================================================================
@@ -142,7 +142,7 @@ export default async function LanguageLayout(
             </div>
           </div>
         </div>
-        <AifaFooter />
+        <AifaFooter lang={lang}/>
       </div>
     </>
   );
