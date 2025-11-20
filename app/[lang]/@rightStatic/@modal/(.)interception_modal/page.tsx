@@ -21,18 +21,4 @@ export default async function LeadFormModalPage({ params }: PageProps) {
   );
 }
 
-/**
- * Generate metadata for the modal page
- * This prevents indexing of the intercepted modal route
- */
-export async function generateMetadata({ params }: PageProps) {
-  const { lang } = await params;
-  
-  return {
-    title: "Lead Form Modal",
-    robots: {
-      index: false,
-      follow: false,
-    },
-  };
-}
+
