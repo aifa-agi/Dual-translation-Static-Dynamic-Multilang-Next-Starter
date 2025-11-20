@@ -122,6 +122,7 @@ export type LeadFormContentProps = {
   onSubmit: (formData: FormData) => Promise<void>;
   formState: FormState;
   onClose: () => void;
+  lang: SupportedLanguage; // NEW
 };
 
 /**

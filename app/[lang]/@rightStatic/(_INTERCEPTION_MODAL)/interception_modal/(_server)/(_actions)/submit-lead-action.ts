@@ -1,19 +1,10 @@
 // app/[lang]/@rightStatic/(...)interception_modal/lead-form/(_server)/(_actions)/submit-lead-action.ts
 
-/**
- * Server Action: Submit Lead Form
- * 
- * UPDATED: Added language parameter for translated validation messages
- * - Validate form data with Zod schema
- * - Return localized error messages
- * - Save lead to database (Prisma/Neon)
- * - Send notification email (Resend)
- */
-
 "use server";
 
+import { redirect } from "next/navigation";
 import { validateLeadForm } from "../../(_shared)/(_schemas)/lead-form-schema";
-import { logFormEvent } from "../../(_shared)/(_config)/lead-form-config";
+import { logFormEvent, getRedirectUrl } from "../../(_shared)/(_config)/lead-form-config";
 import { 
   getLeadFormTranslation,
   getValidationTranslationFunction 
@@ -26,37 +17,92 @@ import type {
 } from "@/config/translations/translations.config";
 
 /**
- * Submit lead form data with localized validation
- * 
- * @param formData - FormData object from client form submission
- * @param lang - Language code for error message translations
- * @returns ServerActionResult with success status and translated errors
+ * Server Action for Progressive Enhancement (without JS)
+ * Returns void and uses redirect() on success
+ * Used in form action attribute
  */
-export async function submitLeadFormAction(
+export async function submitLeadFormActionNoJS(
+  lang: SupportedLanguage,
   formData: FormData,
-  lang: SupportedLanguage
-): Promise<ServerActionResult> {
+): Promise<void> {
   try {
-    logFormEvent("Server Action: Form submission started", { lang });
+    logFormEvent("Server Action (No JS): Form submission started", { lang });
 
-    // Get translations for the current language
     const translations = await getLeadFormTranslation(lang);
     const t = getValidationTranslationFunction(translations);
 
-    // Extract form data
     const rawData = {
       name: formData.get("name"),
       phone: formData.get("phone"),
       email: formData.get("email"),
     };
 
-    logFormEvent("Server Action: Raw data extracted", rawData);
-
-    // Validate with Zod schema using translated messages
     const validation = validateLeadForm(rawData, t);
 
     if (!validation.success) {
-      logFormEvent("Server Action: Validation failed", validation.errors);
+      logFormEvent("Server Action (No JS): Validation failed", validation.errors);
+      // Without JS, we can't show errors inline, just redirect or return
+      // For now, just return and let form stay on page
+      return;
+    }
+
+    const validatedData = validation.data;
+    logFormEvent("Server Action (No JS): Validation passed", validatedData);
+
+    // TODO: Save to database
+    // await prisma.lead.create({ ... });
+
+    // TODO: Send email
+    // await resend.emails.send({ ... });
+
+    await new Promise((resolve) => setTimeout(resolve, 1000));
+
+    logFormEvent("Server Action (No JS): Lead saved successfully, redirecting");
+
+    // Server-side redirect (works WITHOUT JavaScript)
+    const redirectUrl = getRedirectUrl(lang);
+    redirect(redirectUrl);
+
+  } catch (error) {
+    // Check if error is redirect (Next.js throws on redirect)
+    if (error && typeof error === 'object' && 'digest' in error) {
+      throw error; // Re-throw redirect
+    }
+
+    console.error("[Server Action No JS] Error:", error);
+    // Can't show error without JS, just return
+    return;
+  }
+}
+
+/**
+ * Server Action for JavaScript-enabled clients
+ * Returns ServerActionResult for client-side handling
+ * Used when calling from client components
+ */
+export async function submitLeadFormAction(
+  formData: FormData,
+  lang: SupportedLanguage
+): Promise<ServerActionResult> {
+  try {
+    logFormEvent("Server Action (With JS): Form submission started", { lang });
+
+    const translations = await getLeadFormTranslation(lang);
+    const t = getValidationTranslationFunction(translations);
+
+    const rawData = {
+      name: formData.get("name"),
+      phone: formData.get("phone"),
+      email: formData.get("email"),
+    };
+
+    logFormEvent("Server Action (With JS): Raw data extracted", rawData);
+
+    const validation = validateLeadForm(rawData, t);
+
+    if (!validation.success) {
+      logFormEvent("Server Action (With JS): Validation failed", validation.errors);
+      
       return {
         success: false,
         errors: validation.errors,
@@ -65,49 +111,26 @@ export async function submitLeadFormAction(
     }
 
     const validatedData = validation.data;
-    logFormEvent("Server Action: Validation passed", validatedData);
+    logFormEvent("Server Action (With JS): Validation passed", validatedData);
 
-    // TODO: Save to database using Prisma
-    // Example:
-    // const lead = await prisma.lead.create({
-    //   data: {
-    //     name: validatedData.name,
-    //     phone: validatedData.phone,
-    //     email: validatedData.email,
-    //     source: "lead_form_modal",
-    //     language: lang,
-    //     createdAt: new Date(),
-    //   },
-    // });
+    // TODO: Save to database
+    // await prisma.lead.create({ ... });
 
-    // TODO: Send notification email using Resend
-    // Example:
-    // await resend.emails.send({
-    //   from: process.env.EMAIL_FROM!,
-    //   to: process.env.ADMIN_EMAIL!,
-    //   subject: `New Lead Submission (${lang})`,
-    //   html: `
-    //     <h2>New Lead Form Submission</h2>
-    //     <p><strong>Language:</strong> ${lang}</p>
-    //     <p><strong>Name:</strong> ${validatedData.name}</p>
-    //     <p><strong>Phone:</strong> ${validatedData.phone}</p>
-    //     <p><strong>Email:</strong> ${validatedData.email}</p>
-    //   `,
-    // });
+    // TODO: Send email
+    // await resend.emails.send({ ... });
 
-    // Simulate async operation (remove in production)
     await new Promise((resolve) => setTimeout(resolve, 1000));
 
-    logFormEvent("Server Action: Lead saved successfully");
+    logFormEvent("Server Action (With JS): Lead saved successfully");
 
     return {
       success: true,
       message: "Lead form submitted successfully!",
     };
-  } catch (error) {
-    console.error("[Server Action] Error submitting lead form:", error);
 
-    // Get translation for generic error message
+  } catch (error) {
+    console.error("[Server Action With JS] Error submitting lead form:", error);
+
     try {
       const translations = await getLeadFormTranslation(lang);
       const t = getValidationTranslationFunction(translations);
@@ -117,44 +140,10 @@ export async function submitLeadFormAction(
         message: t("An unexpected error occurred. Please try again later."),
       };
     } catch {
-      // Fallback to English if translation fails
       return {
         success: false,
         message: "An unexpected error occurred. Please try again later.",
       };
     }
   }
-}
-
-/**
- * Test server action (development only)
- * Validates form without saving to database
- */
-export async function testLeadFormAction(
-  formData: FormData,
-  lang: SupportedLanguage
-): Promise<ServerActionResult> {
-  const translations = await getLeadFormTranslation(lang);
-  const t = getValidationTranslationFunction(translations);
-
-  const rawData = {
-    name: formData.get("name"),
-    phone: formData.get("phone"),
-    email: formData.get("email"),
-  };
-
-  const validation = validateLeadForm(rawData, t);
-
-  if (!validation.success) {
-    return {
-      success: false,
-      errors: validation.errors,
-      message: "Validation test failed",
-    };
-  }
-
-  return {
-    success: true,
-    message: "Validation test passed (not saved to database)",
-  };
 }

@@ -2,15 +2,7 @@
 
 "use client";
 
-/**
- * Client Component: Lead Form Success State
- * 
- * Purpose: Display success message after form submission
- * - Shows animated success icon
- * - Displays thank you message
- * - Shows auto-close notification
- * - Handles automatic redirect (managed by parent component)
- */
+
 
 import { CheckCircle } from "lucide-react";
 import type { LeadFormSuccessProps } from "../../(_shared)/(_types)/lead-form-types";

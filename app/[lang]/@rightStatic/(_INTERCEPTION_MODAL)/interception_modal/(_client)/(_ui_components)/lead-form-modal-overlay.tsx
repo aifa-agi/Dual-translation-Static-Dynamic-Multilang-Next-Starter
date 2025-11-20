@@ -70,11 +70,13 @@ export function LeadFormModalOverlay({
           <LeadFormSuccess translations={translations} />
         ) : (
           <LeadFormContent
-            translations={translations}
-            onSubmit={handleSubmit}
-            formState={formState}
-            onClose={handleClose}
-          />
+  translations={translations}
+  onSubmit={handleSubmit}
+  formState={formState}
+  onClose={handleClose}
+  lang={lang} // NEW: Pass lang prop
+/>
+
         )}
       </div>
     </div>

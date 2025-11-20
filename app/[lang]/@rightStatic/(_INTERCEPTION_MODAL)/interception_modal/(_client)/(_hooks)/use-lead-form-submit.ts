@@ -6,10 +6,6 @@
  * Custom Hook: Lead Form Submit Logic
  * 
  * UPDATED: Pass language parameter to server action for localized errors
- * - Track submission state (isSubmitting, isSuccess)
- * - Handle form data submission via server action with lang parameter
- * - Process server response with translated error messages
- * - Manage automatic redirect after success
  */
 
 import { useState, useEffect } from "react";
@@ -65,7 +61,7 @@ export function useLeadFormSubmit(lang: SupportedLanguage) {
 
   /**
    * Handle form submission with language parameter
-   * UPDATED: Pass lang to server action for translated error messages
+   * FIXED: Correct parameter order (formData first, then lang)
    */
   const handleSubmit = async (formData: FormData) => {
     logFormEvent("Form submission started", { lang });
@@ -78,7 +74,7 @@ export function useLeadFormSubmit(lang: SupportedLanguage) {
     });
 
     try {
-      // Call server action WITH language parameter
+      // FIXED: formData first, lang second
       const result = await submitLeadFormAction(formData, lang);
 
       if (result.success) {
