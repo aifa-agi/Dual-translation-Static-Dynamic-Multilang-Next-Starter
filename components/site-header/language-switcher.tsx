@@ -61,7 +61,7 @@ const LanguageSwitcher: React.FC<LanguageSwitcherProps> = ({
           className={
             variant === "desktop"
               ? "gap-2 h-9"
-              : "h-9 mr-2 text-white/70 shadow-none hover:bg-white/10 hover:text-white rounded-full"
+              : "h-9 mr-2 rounded-full"
           }
           aria-label="Select language"
         >

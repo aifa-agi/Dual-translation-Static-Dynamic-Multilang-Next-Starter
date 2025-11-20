@@ -1,10 +1,8 @@
 // app/@right/(_INTERCEPTION_MODAL)/(_shared)/(_translations)/modal-translation.ts
 import { appConfig } from "@/config/app-config";
 import translations from "./modal-translation.json";
-import {
-  DEFAULT_LANGUAGE,
-  SupportedLanguage,
-} from "@/config/translations/translations.config";
+import { DEFAULT_LANGUAGE, SupportedLanguage } from "@/config/translations/translations.config";
+
 
 type TranslationEntry = {
   [K in SupportedLanguage]?: string;
