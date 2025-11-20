@@ -17,5 +17,5 @@
 
 export {
   submitLeadFormAction,
-  testLeadFormAction,
+  submitLeadFormActionNoJS,
 } from "./(_actions)/submit-lead-action";
