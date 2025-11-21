@@ -31,7 +31,7 @@ const LanguageSwitcher: React.FC<LanguageSwitcherProps> = ({
   const pathname = usePathname();
   const [filter, setFilter] = useState("");
 
-  // Фильтрация языков по введенному тексту
+
   const languages = useMemo(() => {
     return getAvailableLanguages().filter(
       (lang) =>
@@ -40,9 +40,8 @@ const LanguageSwitcher: React.FC<LanguageSwitcherProps> = ({
     );
   }, [filter]);
 
-  // Обработка выбора языка
+ 
   const handleChange = (langCode: string) => {
-    // Удалить текущий языковой префикс из пути
     const pathSegments = pathname.split("/").filter(Boolean);
     if (pathSegments.length > 0 && pathSegments[0] === currentLang) {
       pathSegments.shift();

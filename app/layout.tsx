@@ -7,7 +7,7 @@ import { META_THEME_COLORS, appConfig } from '@/config/app-config';
 import { fontVariables } from '@/lib/fonts';
 import './styles/globals.css';
 import { Toaster } from 'sonner';
-import { CookieBanner } from '@/components/cookie-banner/cookie-banner';
+
 import { GoogleAnalytics } from '@next/third-parties/google';
 import { TailwindIndicator } from '@/components/tailwind-indicator';
 import { cn } from '@/lib/utils';
@@ -15,6 +15,7 @@ import { ActiveThemeProvider } from '@/providers/active-theme';
 import { ThemeProvider } from '@/providers/theme-provider';
 import { LayoutProvider } from '@/hooks/use-layout';
 import { Analytics } from '@vercel/analytics/next';
+import { CookieBanner } from '@/components/cookie-banner/(_client)/(_ui_components)/cookie-banner';
 
 export const metadata: Metadata = constructMetadata({
   pathname: '/',
@@ -135,7 +136,6 @@ export default function RootLayout({
           <LayoutProvider>
             <ActiveThemeProvider>
               {children}
-
             </ActiveThemeProvider>
           </LayoutProvider>
         </ThemeProvider>
@@ -170,7 +170,7 @@ export default function RootLayout({
           </div>
         </noscript>
 
-        <CookieBanner />
+        
         {process.env.NODE_ENV === 'development' && <TailwindIndicator />}
         <Toaster position="top-center" />
         {process.env.NODE_ENV === 'production' && (
