@@ -1,12 +1,10 @@
-//components/cookie-banner/(_shared)/(_client)/(_hooks)/use-cookie-consent.ts
+// components/cookie-banner/(_client)/(_hooks)/use-cookie-consent.ts
 
 /**
  * useCookieConsent Hook
  *
  * Manages cookie consent state and persistence in client components.
- * Provides methods to accept/reject/save preferences and read initial consent.
- *
- * @module use-cookie-consent
+ * Provides methods to accept/reject/save preferences and control banner visibility.
  */
 
 'use client';
@@ -41,46 +39,47 @@ const DEFAULT_CONSENT: CookieConsent = {
  * useCookieConsent hook - manages consent state in client, persists in cookies.
  *
  * @returns
- *   consent - current consent state object
- *   isLoaded - true after initial load
- *   setConsent - update consent object
- *   acceptAll - accept all toggleable categories
- *   rejectAll - reject all toggleable categories
- *   saveConsent - save current consent to cookie
+ *   consent         - current consent state object
+ *   isLoaded        - true after initial load from cookies
+ *   isBannerVisible - should the banner be rendered
+ *   setConsent      - update consent object in memory
+ *   saveConsent     - save current consent to cookie (and hide banner)
+ *   acceptAll       - accept all toggleable categories
+ *   rejectAll       - reject all toggleable categories
+ *   hideBanner      - force hide banner (e.g., on close button)
  */
 export function useCookieConsent() {
   const [consent, setConsent] = useState<CookieConsent>(DEFAULT_CONSENT);
   const [isLoaded, setIsLoaded] = useState(false);
+  const [isBannerVisible, setIsBannerVisible] = useState(false);
 
   useEffect(() => {
     try {
       const cookie = Cookies.get(COOKIE_CONSENT_KEY);
+
+      // Нет cookie → показываем баннер с дефолтным состоянием
       if (!cookie) {
         debugLog('No consent cookie found, showing banner');
         setConsent(DEFAULT_CONSENT);
         setIsLoaded(true);
+        setIsBannerVisible(true);
         return;
       }
 
       const parsed = JSON.parse(cookie);
       const validation = safeParseCookieConsent(parsed);
 
-      if (!validation.success) {
+      if (!validation.success || !validation.data) {
         debugLog('Consent cookie invalid, resetting to default', validation.error);
         setConsent(DEFAULT_CONSENT);
         setIsLoaded(true);
-        return;
-      }
-
-      if (!validation.data) {
-        debugLog('Consent cookie missing data, resetting to default');
-        setConsent(DEFAULT_CONSENT);
-        setIsLoaded(true);
+        setIsBannerVisible(true);
         return;
       }
 
       const validConsent = validation.data;
 
+      // Согласие просрочено или версия не совпадает → сбрасываем и показываем баннер
       if (
         isConsentExpired(validConsent.timestamp) ||
         !isConsentVersionValid(validConsent.version)
@@ -88,33 +87,51 @@ export function useCookieConsent() {
         debugLog('Consent expired or version mismatch, resetting to default');
         setConsent(DEFAULT_CONSENT);
         setIsLoaded(true);
+        setIsBannerVisible(true);
         return;
       }
 
+      // Валидное согласие → сохраняем и НЕ показываем баннер
       setConsent(validConsent);
       setIsLoaded(true);
+      setIsBannerVisible(false);
     } catch (e) {
       debugLog('Error parsing consent cookie, resetting to default', e);
       setConsent(DEFAULT_CONSENT);
       setIsLoaded(true);
+      setIsBannerVisible(true);
     }
   }, []);
 
   /**
+   * Hide the banner (without changing consent).
+   * Can be used for explicit close actions.
+   */
+  function hideBanner() {
+    setIsBannerVisible(false);
+  }
+
+  /**
    * Save the current consent object to cookie and update state.
+   * Also hides the banner after successful save.
    */
   function saveConsent(newConsent: CookieConsent) {
     try {
       newConsent.timestamp = Date.now();
       newConsent.version = CONSENT_VERSION;
+
       validateCookieConsent(newConsent);
+
       Cookies.set(COOKIE_CONSENT_KEY, JSON.stringify(newConsent), {
         expires: CONSENT_EXPIRY_DAYS,
         secure: process.env.NODE_ENV === 'production',
         sameSite: 'lax',
         path: '/',
       });
+
       setConsent(newConsent);
+      hideBanner(); // КРИТИЧЕСКО: скрываем баннер после сохранения
+
       debugLog('Consent saved', newConsent);
     } catch (error) {
       debugLog('Failed to save consent', error);
@@ -122,7 +139,7 @@ export function useCookieConsent() {
   }
 
   /**
-   * Accept all toggleable cookie categories
+   * Accept all toggleable cookie categories.
    */
   function acceptAll() {
     const newConsent: CookieConsent = {
@@ -136,7 +153,7 @@ export function useCookieConsent() {
   }
 
   /**
-   * Reject all toggleable cookie categories
+   * Reject all toggleable cookie categories.
    */
   function rejectAll() {
     const newConsent: CookieConsent = {
@@ -152,9 +169,11 @@ export function useCookieConsent() {
   return {
     consent,
     isLoaded,
+    isBannerVisible,
     setConsent,
     saveConsent,
     acceptAll,
     rejectAll,
+    hideBanner,
   };
 }
