@@ -1,5 +1,4 @@
-"use client";
-
+//app/[lang]/@left/(_CHAT)/page.tsx
 import ChatExample from "@/components/chat-example/chat-example";
 
 

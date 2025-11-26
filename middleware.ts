@@ -1,4 +1,4 @@
-// middleware.ts 
+// middleware.ts
 
 import { NextRequest, NextResponse } from 'next/server';
 import { SUPPORTED_LANGUAGES, DEFAULT_LANGUAGE } from './config/translations/translations.config';
@@ -8,33 +8,32 @@ const LOCALE_COOKIE_NAME = 'NEXT_LOCALE';
 export function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
+  // Добавляем реальный путь в заголовок для серверных компонентов AIFA
+  const responseWithPath = NextResponse.next();
+  responseWithPath.headers.set('x-pathname', pathname);
+
   // Check if pathname already has a language prefix
   const pathnameHasLocale = SUPPORTED_LANGUAGES.some(
-    (locale) => pathname.startsWith(`/${locale}/`) || pathname === `/${locale}`
+    (locale) => pathname.startsWith(`/${locale}/`) || pathname === `/${locale}`,
   );
 
   if (pathnameHasLocale) {
-    // Extract locale from pathname and save to cookie
     const currentLocale = pathname.split('/')[1];
-    
-    const response = NextResponse.next();
-    response.cookies.set(LOCALE_COOKIE_NAME, currentLocale, {
-      maxAge: 365 * 24 * 60 * 60, // 1 year
+
+    responseWithPath.cookies.set(LOCALE_COOKIE_NAME, currentLocale, {
+      maxAge: 365 * 24 * 60 * 60,
       path: '/',
     });
-    
-    return response;
+
+    return responseWithPath;
   }
 
-  // Priority: Cookie > Accept-Language > Default
   let detectedLocale = DEFAULT_LANGUAGE;
 
-  // 1. Check cookie first (user's manual choice)
   const cookieLocale = request.cookies.get(LOCALE_COOKIE_NAME)?.value;
   if (cookieLocale && SUPPORTED_LANGUAGES.includes(cookieLocale)) {
     detectedLocale = cookieLocale;
   } else {
-    // 2. Detect from Accept-Language header
     const acceptLanguage = request.headers.get('accept-language');
     if (acceptLanguage) {
       const languages = acceptLanguage
@@ -49,7 +48,7 @@ export function middleware(request: NextRequest) {
         .sort((a, b) => b.priority - a.priority);
 
       const matchedLanguage = languages.find((lang) =>
-        SUPPORTED_LANGUAGES.includes(lang.code)
+        SUPPORTED_LANGUAGES.includes(lang.code),
       );
 
       if (matchedLanguage) {
@@ -58,23 +57,19 @@ export function middleware(request: NextRequest) {
     }
   }
 
-  // Redirect to detected locale
   const url = request.nextUrl.clone();
   url.pathname = `/${detectedLocale}${pathname}`;
-  
-  const response = NextResponse.redirect(url);
-  
-  // Save detected locale to cookie
-  response.cookies.set(LOCALE_COOKIE_NAME, detectedLocale, {
+
+  const redirectResponse = NextResponse.redirect(url);
+  redirectResponse.headers.set('x-pathname', url.pathname); // после редиректа путь меняется
+  redirectResponse.cookies.set(LOCALE_COOKIE_NAME, detectedLocale, {
     maxAge: 365 * 24 * 60 * 60,
     path: '/',
   });
 
-  return response;
+  return redirectResponse;
 }
 
 export const config = {
-  matcher: [
-    '/((?!api|_next/static|_next/image|favicon.ico|.*\\..*|_next/data).*)',
-  ],
+  matcher: ['/((?!api|_next/static|_next/image|favicon.ico|.*\\..*|_next/data).*)'],
 };

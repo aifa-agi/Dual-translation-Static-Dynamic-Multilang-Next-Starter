@@ -13,6 +13,7 @@ import { OnlineStatusProvider } from '@/providers/online-status-provider';
 import AifaFooter from '@/components/aifa-footer/aifa-footer';
 import { SiteHeader } from '@/components/site-header/site-header-wrapper';
 import { CookieBanner } from '@/components/cookie-banner/(_client)/(_ui_components)/cookie-banner';
+import NoScriptBanner from '@/components/no-script-banner/(_client)/(_ui_components)/no-script-banner';
 
 // ============================================================================
 // STATIC PARAMS GENERATION
@@ -143,6 +144,8 @@ export default async function LanguageLayout(
             </div>
           </div>
         </div>
+        {/* Language-aware banners and footer */}
+        <NoScriptBanner lang={lang } />
         <CookieBanner lang={lang}/>
         <AifaFooter lang={lang}/>
       </div>
