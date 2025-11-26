@@ -3,7 +3,6 @@
 import { constructMetadata } from '@/lib/construct-metadata';
 import { appConfig } from '@/config/app-config';
 import type { Metadata } from 'next';
-import ArticleContent from '@/app/[lang]/@rightStatic/(_PUBLIC)/(_HOME)/home/(_components)/article-content';
 import { PageWrapperConfig, SeoPageWrapper } from '@/components/seo-page-wrapper/seo-page-wrapper';
 import { StructuredDataWrapper } from '@/components/seo-page-wrapper/structured-data-wrapper';
 import Image from 'next/image';
@@ -11,6 +10,7 @@ import { Card } from '@/components/ui/card';
 import { AIFA_ROADMAP_ITEMS } from '@/config/pages-config/aifa-roadmap-data';
 import { AifaRoadmap } from '@/components/aifa-roadmap';
 import { SupportedLanguage } from '@/config/translations/translations.config';
+import ArticleContent from './(_components)/article-content';
 
 // ============================================================================
 // META CONFIGURATION
@@ -238,7 +238,7 @@ const HOME_PAGE_CONFIG: PageWrapperConfig = {
           <Card className='p-4'>
           <Image src={"/images/parallel-routing-aifa.png"} alt="images/seo-research-aifa" width={800} height={450} priority={false} className='w-full' />
         </Card></section>
-        <ArticleContent />
+        <ArticleContent/>
        <AifaRoadmap items={AIFA_ROADMAP_ITEMS} />
       </SeoPageWrapper>
     </>
