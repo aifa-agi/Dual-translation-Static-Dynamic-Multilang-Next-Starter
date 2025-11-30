@@ -16,7 +16,7 @@ export function ArtifactFsInspectorHeader() {
       </h2>
       <p className="text-xs text-muted-foreground">
         {descriptionStart}
-       <code> de className="px-1 py-0.5 rounded bg-muted"
+       <code> de className=&quot;px-1 py-0.5 rounded bg-muted&quot;
           {codeExample}
         </code>
         {descriptionEnd}
