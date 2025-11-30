@@ -429,3 +429,149 @@
     font-size: 0.8rem;
   }
 }
+
+/* AIFA Fractal Dev Mode — только кнопка копирования внутри фрактала */
+.fractal-dev-tools {
+  position: absolute;
+  top: 4px;
+  right: 6px;
+  z-index: 50;
+  padding: 2px;
+}
+
+/* Кнопка copy: 8px, моноширинный шрифт, лёгкая подсветка */
+.fractal-copy-btn {
+  display: inline-block;
+  padding: 2px 6px;
+  background: hsl(var(--primary) / 0.2);
+  color: hsl(var(--primary-foreground));
+  border: 1px solid hsl(var(--primary) / 0.4);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  user-select: none;
+  white-space: nowrap;
+  font-size: 8px;
+  line-height: 1.1;
+  font-weight: 600;
+  font-family: var(--font-mono);
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.fractal-copy-btn:hover {
+  background: hsl(var(--primary) / 0.4);
+  border-color: hsl(var(--primary));
+  transform: scale(1.05);
+  box-shadow: 0 1px 4px hsl(var(--primary) / 0.3);
+}
+
+.fractal-copy-btn:active {
+  transform: scale(0.98);
+}
+
+/* Базовый контейнер фрактала */
+.aifa-fractal-container {
+  position: relative;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Контрастные цвета для уровней 1–20 */
+
+.fractal-level-1 {
+  border: 2px dashed hsl(210 80% 60%);   /* синий */
+  background-color: hsl(210 100% 97%);
+}
+
+.fractal-level-2 {
+  border: 2px dashed hsl(0 80% 60%);     /* красный */
+  background-color: hsl(0 100% 97%);
+}
+
+.fractal-level-3 {
+  border: 2px dashed hsl(140 70% 55%);   /* зелёный */
+  background-color: hsl(140 90% 97%);
+}
+
+.fractal-level-4 {
+  border: 2px dashed hsl(30 85% 55%);    /* оранжевый */
+  background-color: hsl(30 95% 97%);
+}
+
+.fractal-level-5 {
+  border: 2px dashed hsl(280 70% 60%);   /* фиолетовый */
+  background-color: hsl(280 90% 97%);
+}
+
+.fractal-level-6 {
+  border: 2px dashed hsl(160 70% 55%);   /* бирюзовый */
+  background-color: hsl(160 90% 97%);
+}
+
+.fractal-level-7 {
+  border: 2px dashed hsl(340 75% 60%);   /* розовый/маджента */
+  background-color: hsl(340 95% 97%);
+}
+
+.fractal-level-8 {
+  border: 2px dashed hsl(60 80% 55%);    /* жёлтый */
+  background-color: hsl(60 95% 97%);
+}
+
+.fractal-level-9 {
+  border: 2px dashed hsl(200 80% 60%);   /* циан/голубой */
+  background-color: hsl(200 95% 97%);
+}
+
+.fractal-level-10 {
+  border: 2px dashed hsl(20 80% 58%);    /* тёплый красно-оранжевый */
+  background-color: hsl(20 95% 97%);
+}
+
+.fractal-level-11 {
+  border: 2px dashed hsl(120 70% 55%);   /* чистый зелёный */
+  background-color: hsl(120 90% 97%);
+}
+
+.fractal-level-12 {
+  border: 2px dashed hsl(260 70% 60%);   /* индиго/фиолетово-синий */
+  background-color: hsl(260 90% 97%);
+}
+
+.fractal-level-13 {
+  border: 2px dashed hsl(45 85% 55%);    /* янтарный */
+  background-color: hsl(45 95% 97%);
+}
+
+.fractal-level-14 {
+  border: 2px dashed hsl(310 75% 60%);   /* яркая маджента */
+  background-color: hsl(310 95% 97%);
+}
+
+.fractal-level-15 {
+  border: 2px dashed hsl(170 70% 55%);   /* морской зелёно-голубой */
+  background-color: hsl(170 90% 97%);
+}
+
+.fractal-level-16 {
+  border: 2px dashed hsl(10 80% 58%);    /* алый */
+  background-color: hsl(10 95% 97%);
+}
+
+.fractal-level-17 {
+  border: 2px dashed hsl(190 80% 60%);   /* сине-циановый */
+  background-color: hsl(190 95% 97%);
+}
+
+.fractal-level-18 {
+  border: 2px dashed hsl(80 75% 55%);    /* салатовый */
+  background-color: hsl(80 90% 97%);
+}
+
+.fractal-level-19 {
+  border: 2px dashed hsl(300 75% 60%);   /* фуксия/фиолетово-розовый */
+  background-color: hsl(300 95% 97%);
+}
+
+.fractal-level-20 {
+  border: 2px dashed hsl(40 85% 55%);    /* оранжево-жёлтый */
+  background-color: hsl(40 95% 97%);
+}

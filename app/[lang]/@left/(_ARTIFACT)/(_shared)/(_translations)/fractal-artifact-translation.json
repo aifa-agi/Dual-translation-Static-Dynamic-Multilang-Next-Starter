@@ -1,0 +1,11 @@
+{
+  "cm3starter001": {
+    "cuidKey": "cm3starter001",
+    "key": "greeting",
+    "translations": {
+      "en": "Hello from the ARTEFACT left slot",
+      "ru": "Привет из фрактала слота артефакта",
+      "es": "Hola desde el fractal de ranura ARTEFACT"
+    }
+  }
+}

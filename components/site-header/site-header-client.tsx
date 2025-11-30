@@ -59,7 +59,7 @@ export function SiteHeaderClient({ initialAuth, lang }: SiteHeaderClientProps) {
   if (!lang) return null;
 
   return (
-    <header className="fixed inset-x-0 top-0 z-100">
+    <header className="fixed inset-x-0 top-0 z-100000">
       <div className="container px-6 mt-4">
         <div className="mx-auto rounded-full border border-white/10 bg-black/80 backdrop-blur-sm">
           <div className="flex h-12 items-center justify-between px-2">

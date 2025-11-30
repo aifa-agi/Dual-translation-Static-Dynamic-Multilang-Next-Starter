@@ -1,0 +1,11 @@
+{
+  "cm3artifactfs001": {
+    "cuidKey": "cm3artifactfs001",
+    "key": "greeting",
+    "translations": {
+      "en": "Hello from ARTIFACT FS Inspector",
+      "ru": "Привет из подфрактала ARTIFACT FS Inspector",
+      "es": "Hola desde el subfractal ARTIFACT FS Inspector"
+    }
+  }
+}
