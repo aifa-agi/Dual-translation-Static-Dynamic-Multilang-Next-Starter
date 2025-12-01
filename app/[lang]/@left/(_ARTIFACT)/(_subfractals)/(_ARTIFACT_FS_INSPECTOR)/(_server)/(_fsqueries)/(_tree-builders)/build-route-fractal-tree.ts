@@ -5,7 +5,7 @@ import * as path from "path";
 import { readLayer, type LayerContent } from "../(_fractal-readers)/read-layer";
 import { listSubfractalNames } from "../(_fractal-readers)/list-subfractal-names";
 import { buildFileNode, type FileNode } from "../(_fractal-readers)/build-file-node";
-import { findRouteSegment } from "./find-route-segment"; // 🔥 НОВЫЙ ИМПОРТ
+import { findRouteSegment } from "./find-route-segment";
 
 export type RouteSegmentInfo = {
   name: string;
@@ -22,7 +22,7 @@ export type ArtifactFsInspectorFractalTree = {
   fractalRootPathFromApp: string;
   fractalType: "fractal-root";
   filesAtRoot: FileNode[];
-  routeSegment?: RouteSegmentInfo; // 🔥 НОВОЕ
+  routeSegment?: RouteSegmentInfo;
   clientLayer: LayerContent | null;
   serverLayer: LayerContent | null;
   sharedLayer: LayerContent | null;
@@ -31,6 +31,23 @@ export type ArtifactFsInspectorFractalTree = {
 
 /**
  * Строит полное дерево фрактала
+ * 
+ * @param fractalRoot - Абсолютный путь к корню фрактала
+ * @param projectRoot - Корень проекта
+ * @returns Полное дерево фрактала с файлами, слоями и роутинг-сегментом
+ * 
+ * @example
+ * await buildRouteFractalTree("/project/app/[lang]/@left/(_ARTIFACT)", "/project")
+ * // => {
+ * //   fractalRootPathFromApp: "app/[lang]/@left/(_ARTIFACT)",
+ * //   fractalType: "fractal-root",
+ * //   filesAtRoot: [SPEC.md, README.md],
+ * //   routeSegment: { name: "artifact", page: {...}, layout: {...} },
+ * //   clientLayer: {...},
+ * //   serverLayer: {...},
+ * //   sharedLayer: {...},
+ * //   subfractals: ["(_ARTIFACT_FS_INSPECTOR)"]
+ * // }
  */
 export async function buildRouteFractalTree(
   fractalRoot: string,
@@ -66,6 +83,15 @@ export async function buildRouteFractalTree(
 
   if (routeSegment) {
     console.log("[buildRouteFractalTree]   ✅ Route segment found:", routeSegment.name);
+    console.log("[buildRouteFractalTree]     Path:", routeSegment.pathFromApp);
+    console.log("[buildRouteFractalTree]     Files:", [
+      routeSegment.page && "page.tsx",
+      routeSegment.layout && "layout.tsx",
+      routeSegment.error && "error.tsx",
+      routeSegment.notFound && "not-found.tsx",
+      routeSegment.default && "default.tsx",
+      routeSegment.loading && "loading.tsx",
+    ].filter(Boolean).join(", "));
   } else {
     console.log("[buildRouteFractalTree]   ℹ️ No route segment (Embedded Fractal)");
   }
@@ -76,9 +102,15 @@ export async function buildRouteFractalTree(
   const serverLayer = await readLayer(fractalRoot, "(_server)", projectRoot);
   const sharedLayer = await readLayer(fractalRoot, "(_shared)", projectRoot);
 
+  console.log("[buildRouteFractalTree]     Client layer:", clientLayer ? "✓" : "✗");
+  console.log("[buildRouteFractalTree]     Server layer:", serverLayer ? "✓" : "✗");
+  console.log("[buildRouteFractalTree]     Shared layer:", sharedLayer ? "✓" : "✗");
+
   // 4️⃣ Читаем субфракталы
   console.log("[buildRouteFractalTree]   📖 Reading subfractals...");
   const subfractals = await listSubfractalNames(fractalRoot);
+
+  console.log("[buildRouteFractalTree]     Found", subfractals.length, "subfractals:", subfractals);
 
   console.log("[buildRouteFractalTree] ✅ Tree built successfully");
 
@@ -86,7 +118,7 @@ export async function buildRouteFractalTree(
     fractalRootPathFromApp,
     fractalType: "fractal-root",
     filesAtRoot,
-    routeSegment, // 🔥 НОВОЕ
+    routeSegment,
     clientLayer,
     serverLayer,
     sharedLayer,

@@ -474,104 +474,224 @@
   transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-/* Контрастные цвета для уровней 1–20 */
+/* Контрастные цвета для уровней 1–20 (hover-only) */
 
 .fractal-level-1 {
+  border: 2px dashed transparent;   /* синий - невидимо по умолчанию */
+  background-color: transparent;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.aifa-fractal-container:hover.fractal-level-1 {
   border: 2px dashed hsl(210 80% 60%);   /* синий */
   background-color: hsl(210 100% 97%);
 }
 
 .fractal-level-2 {
-  border: 2px dashed hsl(0 80% 60%);     /* красный */
+  border: 2px dashed transparent;   /* красный - невидимо по умолчанию */
+  background-color: transparent;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.aifa-fractal-container:hover.fractal-level-2 {
+  border: 2px dashed hsl(0 80% 60%);   /* красный */
   background-color: hsl(0 100% 97%);
 }
 
 .fractal-level-3 {
+  border: 2px dashed transparent;   /* зелёный - невидимо по умолчанию */
+  background-color: transparent;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.aifa-fractal-container:hover.fractal-level-3 {
   border: 2px dashed hsl(140 70% 55%);   /* зелёный */
   background-color: hsl(140 90% 97%);
 }
 
 .fractal-level-4 {
-  border: 2px dashed hsl(30 85% 55%);    /* оранжевый */
+  border: 2px dashed transparent;   /* оранжевый - невидимо по умолчанию */
+  background-color: transparent;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.aifa-fractal-container:hover.fractal-level-4 {
+  border: 2px dashed hsl(30 85% 55%);   /* оранжевый */
   background-color: hsl(30 95% 97%);
 }
 
 .fractal-level-5 {
+  border: 2px dashed transparent;   /* фиолетовый - невидимо по умолчанию */
+  background-color: transparent;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.aifa-fractal-container:hover.fractal-level-5 {
   border: 2px dashed hsl(280 70% 60%);   /* фиолетовый */
   background-color: hsl(280 90% 97%);
 }
 
 .fractal-level-6 {
+  border: 2px dashed transparent;   /* бирюзовый - невидимо по умолчанию */
+  background-color: transparent;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.aifa-fractal-container:hover.fractal-level-6 {
   border: 2px dashed hsl(160 70% 55%);   /* бирюзовый */
   background-color: hsl(160 90% 97%);
 }
 
 .fractal-level-7 {
+  border: 2px dashed transparent;   /* розовый/маджента - невидимо по умолчанию */
+  background-color: transparent;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.aifa-fractal-container:hover.fractal-level-7 {
   border: 2px dashed hsl(340 75% 60%);   /* розовый/маджента */
   background-color: hsl(340 95% 97%);
 }
 
 .fractal-level-8 {
-  border: 2px dashed hsl(60 80% 55%);    /* жёлтый */
+  border: 2px dashed transparent;   /* жёлтый - невидимо по умолчанию */
+  background-color: transparent;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.aifa-fractal-container:hover.fractal-level-8 {
+  border: 2px dashed hsl(60 80% 55%);   /* жёлтый */
   background-color: hsl(60 95% 97%);
 }
 
 .fractal-level-9 {
+  border: 2px dashed transparent;   /* циан/голубой - невидимо по умолчанию */
+  background-color: transparent;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.aifa-fractal-container:hover.fractal-level-9 {
   border: 2px dashed hsl(200 80% 60%);   /* циан/голубой */
   background-color: hsl(200 95% 97%);
 }
 
 .fractal-level-10 {
-  border: 2px dashed hsl(20 80% 58%);    /* тёплый красно-оранжевый */
+  border: 2px dashed transparent;   /* тёплый красно-оранжевый - невидимо по умолчанию */
+  background-color: transparent;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.aifa-fractal-container:hover.fractal-level-10 {
+  border: 2px dashed hsl(20 80% 58%);   /* тёплый красно-оранжевый */
   background-color: hsl(20 95% 97%);
 }
 
 .fractal-level-11 {
+  border: 2px dashed transparent;   /* чистый зелёный - невидимо по умолчанию */
+  background-color: transparent;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.aifa-fractal-container:hover.fractal-level-11 {
   border: 2px dashed hsl(120 70% 55%);   /* чистый зелёный */
   background-color: hsl(120 90% 97%);
 }
 
 .fractal-level-12 {
+  border: 2px dashed transparent;   /* индиго/фиолетово-синий - невидимо по умолчанию */
+  background-color: transparent;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.aifa-fractal-container:hover.fractal-level-12 {
   border: 2px dashed hsl(260 70% 60%);   /* индиго/фиолетово-синий */
   background-color: hsl(260 90% 97%);
 }
 
 .fractal-level-13 {
-  border: 2px dashed hsl(45 85% 55%);    /* янтарный */
+  border: 2px dashed transparent;   /* янтарный - невидимо по умолчанию */
+  background-color: transparent;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.aifa-fractal-container:hover.fractal-level-13 {
+  border: 2px dashed hsl(45 85% 55%);   /* янтарный */
   background-color: hsl(45 95% 97%);
 }
 
 .fractal-level-14 {
+  border: 2px dashed transparent;   /* яркая маджента - невидимо по умолчанию */
+  background-color: transparent;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.aifa-fractal-container:hover.fractal-level-14 {
   border: 2px dashed hsl(310 75% 60%);   /* яркая маджента */
   background-color: hsl(310 95% 97%);
 }
 
 .fractal-level-15 {
+  border: 2px dashed transparent;   /* морской зелёно-голубой - невидимо по умолчанию */
+  background-color: transparent;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.aifa-fractal-container:hover.fractal-level-15 {
   border: 2px dashed hsl(170 70% 55%);   /* морской зелёно-голубой */
   background-color: hsl(170 90% 97%);
 }
 
 .fractal-level-16 {
-  border: 2px dashed hsl(10 80% 58%);    /* алый */
+  border: 2px dashed transparent;   /* алый - невидимо по умолчанию */
+  background-color: transparent;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.aifa-fractal-container:hover.fractal-level-16 {
+  border: 2px dashed hsl(10 80% 58%);   /* алый */
   background-color: hsl(10 95% 97%);
 }
 
 .fractal-level-17 {
+  border: 2px dashed transparent;   /* сине-циановый - невидимо по умолчанию */
+  background-color: transparent;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.aifa-fractal-container:hover.fractal-level-17 {
   border: 2px dashed hsl(190 80% 60%);   /* сине-циановый */
   background-color: hsl(190 95% 97%);
 }
 
 .fractal-level-18 {
-  border: 2px dashed hsl(80 75% 55%);    /* салатовый */
+  border: 2px dashed transparent;   /* салатовый - невидимо по умолчанию */
+  background-color: transparent;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.aifa-fractal-container:hover.fractal-level-18 {
+  border: 2px dashed hsl(80 75% 55%);   /* салатовый */
   background-color: hsl(80 90% 97%);
 }
 
 .fractal-level-19 {
+  border: 2px dashed transparent;   /* фуксия/фиолетово-розовый - невидимо по умолчанию */
+  background-color: transparent;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.aifa-fractal-container:hover.fractal-level-19 {
   border: 2px dashed hsl(300 75% 60%);   /* фуксия/фиолетово-розовый */
   background-color: hsl(300 95% 97%);
 }
 
 .fractal-level-20 {
-  border: 2px dashed hsl(40 85% 55%);    /* оранжево-жёлтый */
+  border: 2px dashed transparent;   /* оранжево-жёлтый - невидимо по умолчанию */
+  background-color: transparent;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.aifa-fractal-container:hover.fractal-level-20 {
+  border: 2px dashed hsl(40 85% 55%);   /* оранжево-жёлтый */
   background-color: hsl(40 95% 97%);
 }

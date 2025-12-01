@@ -1,4 +1,5 @@
-// @/app/(lang)/left/(_ARTIFACT)/(_client)/(_uiclientislands)/artifact-starter-client-island.tsx
+// @/app/[lang]/@left/(_ARTIFACT)/(_client)/(_uiclientislands)/artifact-starter-client-island.tsx
+
 "use client";
 
 import { JSX, useCallback, useEffect, useState } from "react";
@@ -20,8 +21,8 @@ type ArtifactStarterClientIslandProps = {
 
 const MODES = [
   "FS Inspector",
-  "Prompt Builder",
   "Response Parser",
+  "Prompt Builder",
   "Project Schema",
   "Blob Manager",
   "Content Tool",
@@ -30,15 +31,14 @@ const MODES = [
 type ArtifactMode = (typeof MODES)[number];
 
 const FS_INSPECTOR_MODE: ArtifactMode = "FS Inspector";
+const RESPONSE_PARSER_MODE: ArtifactMode = "Response Parser";
 
 export function ArtifactStarterClientIsland(
   props: ArtifactStarterClientIslandProps,
 ): JSX.Element {
   const { translations, lang, currentPath, pageData } = props;
 
-  const [activeMode, setActiveMode] = useState<ArtifactMode | null>(
-    FS_INSPECTOR_MODE,
-  );
+  const [activeMode, setActiveMode] = useState<ArtifactMode | null>(null);
 
   const title =
     pageData?.fractalName ?? "ARTEFACT Workspace · Client Canvas";
@@ -47,19 +47,24 @@ export function ArtifactStarterClientIsland(
     "Client-side canvas with mode buttons for artifact tooling.";
   const hint =
     pageData?.hint ??
-    "Click FS Inspector to toggle the filesystem inspector panel below. Other modes are not implemented yet and will show a toast only.";
+    "Click FS Inspector or Response Parser to toggle panels below. Other modes are not implemented yet and will show a toast only.";
 
   const handleClick = useCallback(
     (mode: ArtifactMode) => {
       if (mode === FS_INSPECTOR_MODE) {
-        // Toggle FS Inspector visibility.
         setActiveMode((previous) =>
           previous === FS_INSPECTOR_MODE ? null : FS_INSPECTOR_MODE,
         );
         return;
       }
 
-      // Other modes: keep current toast-only behaviour.
+      if (mode === RESPONSE_PARSER_MODE) {
+        setActiveMode((previous) =>
+          previous === RESPONSE_PARSER_MODE ? null : RESPONSE_PARSER_MODE,
+        );
+        return;
+      }
+
       toast.info(
         `${mode} · lang=${lang ?? "n/a"} · path=${currentPath ?? "n/a"}`,
         {
@@ -72,15 +77,23 @@ export function ArtifactStarterClientIsland(
   );
 
   useEffect(() => {
-    const panel = document.getElementById("artifact-fs-inspector-panel");
-    if (!panel) {
-      return;
+    const fsInspectorPanel = document.getElementById("artifact-fs-inspector-panel");
+    const responseParserPanel = document.getElementById("artifact-response-parser-panel");
+
+    if (fsInspectorPanel) {
+      if (activeMode === FS_INSPECTOR_MODE) {
+        fsInspectorPanel.classList.remove("hidden");
+      } else {
+        fsInspectorPanel.classList.add("hidden");
+      }
     }
 
-    if (activeMode === FS_INSPECTOR_MODE) {
-      panel.classList.remove("hidden");
-    } else {
-      panel.classList.add("hidden");
+    if (responseParserPanel) {
+      if (activeMode === RESPONSE_PARSER_MODE) {
+        responseParserPanel.classList.remove("hidden");
+      } else {
+        responseParserPanel.classList.add("hidden");
+      }
     }
   }, [activeMode]);
 

@@ -59,27 +59,7 @@ export default function ArtifactFsInspectorStarterClientIsland(
   });
   const [isPending, startTransition] = useTransition();
 
-  const handleReadFile = () => {
-    startTransition(async () => {
-      setErrorState({ hasError: false });
-      setState({ mode: "idle" });
-
-      const result = await artifactFsInspectorReadFileAction(pathInput);
-
-      if (!result.ok) {
-        setErrorState({
-          hasError: true,
-          message: result.error,
-        });
-        return;
-      }
-
-      setState({
-        mode: "file",
-        data: result,
-      });
-    });
-  };
+ 
 
   const handleReadFractal = () => {
     startTransition(async () => {
@@ -106,13 +86,12 @@ export default function ArtifactFsInspectorStarterClientIsland(
   const errorPrefix = "Error: ";
 
   return (
-    <section className="flex flex-col gap-4 w-full">
+    <section className="flex flex-col gap-4 w-full px-4">
       <ArtifactFsInspectorHeader />
 
       <ArtifactFsInspectorInputSection
         pathInput={pathInput}
         onPathChange={setPathInput}
-        onReadFile={handleReadFile}
         onReadFractal={handleReadFractal}
         isPending={isPending}
       />

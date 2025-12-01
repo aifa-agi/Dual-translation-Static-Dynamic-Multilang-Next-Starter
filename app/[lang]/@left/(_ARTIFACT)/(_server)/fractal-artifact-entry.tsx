@@ -1,4 +1,5 @@
-// @/app/(lang)/@left/(_ARTIFACT)/(_server)/fractal-artifact-entry.tsx
+// @/app/[lang]/@left/(_ARTIFACT)/(_server)/fractal-artifact-entry.tsx
+
 import type { SupportedLanguage } from "@/config/translations/translations.config";
 
 import { getFractalArtifactTranslation } from "../(_shared)/(_translations)/get-fractal-artifact-translation";
@@ -10,6 +11,7 @@ import type {
 import { ArtifactStarterServerConsumer } from "./(_servercomponents)/artifact-starter-server-consumer";
 import { ArtifactStarterClientIsland } from "../(_client)/(_uiclientislands)/artifact-starter-client-island";
 import { ArtifactFsInspectorEmbeddingSlot } from "../(_subfractals)/(_ARTIFACT_FS_INSPECTOR)/embedding-artifact-fs-inspector-slot";
+import { ResponseParserEmbeddingSlot } from "../(_subfractals)/(_RESPONSE_PARSER)/embedding-response-parser-slot";
 
 import { JSX } from "react";
 import { FractalDevLabelHandler } from "../(_client)/(_uiclientislands)/fractal-dev-label-handler";
@@ -28,7 +30,7 @@ export async function FractalArtifactEntry(
 
   const translations: FractalArtifactTranslations =
     await getFractalArtifactTranslation(lang);
-  const currentFractalLevel = level || 1
+  const currentFractalLevel = level || 1;
   const pageData: ArtifactPageData = {
     fractalName: "(_ARTIFACT)",
     fractalPath: "@/app/[lang]/@left/(_ARTIFACT)",
@@ -36,12 +38,11 @@ export async function FractalArtifactEntry(
     fractalDescription:
       "Improved AIFA fractal for the left slot: an AI-assisted canvas to work with other fractals and the project filesystem.",
     hint:
-      "FS Inspector is a dedicated subfractal below. Use the FS Inspector button to toggle its visibility; other modes will be extracted to subfractals later.",
+      "FS Inspector and Response Parser are dedicated subfractals below. Use the buttons to toggle their visibility; other modes will be extracted to subfractals later.",
   };
 
   const isDevMode = process.env.NODE_ENV === "development";
 
-  // Нормализуем level в диапазон 1–20
   const clampedLevel = Math.max(1, Math.min(currentFractalLevel, 20));
 
   return (
@@ -73,17 +74,27 @@ export async function FractalArtifactEntry(
         pageData={pageData}
       />
 
-       {/* Embedded Minimal subfractal: ARTIFACT_FS_INSPECTOR */}
-        <div
-          id="artifact-fs-inspector-panel"
-          className="rounded-md border border-dashed border-gray-300 bg-gray-50 "
-        >
-          <ArtifactFsInspectorEmbeddingSlot
-            lang={lang}
-            currentPath={currentPath}
-            level={level + 1}
-          />
-        </div>
+      <div
+        id="artifact-fs-inspector-panel"
+        className="hidden rounded-md border border-dashed border-gray-300 bg-gray-50"
+      >
+        <ArtifactFsInspectorEmbeddingSlot
+          lang={lang}
+          currentPath={currentPath}
+          level={level + 1}
+        />
+      </div>
+
+      <div
+        id="artifact-response-parser-panel"
+        className="hidden rounded-md border border-dashed border-purple-300 bg-purple-50"
+      >
+        <ResponseParserEmbeddingSlot
+          lang={lang}
+          currentPath={currentPath}
+          level={level + 1}
+        />
+      </div>
     </div>
   );
 }
