@@ -27,7 +27,11 @@ export async function FractalAboutPageSubdomainEntry(
 
   const currentLevel = level ?? 1;
   const clampedLevel = Math.max(1, Math.min(currentLevel, 20));
-
+  const placeholderCurrentSlot = "rightStatic"
+  const placeholderFractalLevel1 = "(_ABOUT_PAGE)"
+  const placeholderFractalLevel2 = "(_ABOUT_PAGE_SUBDOMAIN)"
+  const fractalsSeparador = "(_subfractals)"
+  
   const pageData = {
     fractalName: "ABOUT_PAGE_SUBDOMAIN",
     fractalDescription:
@@ -35,45 +39,45 @@ export async function FractalAboutPageSubdomainEntry(
     hint:
       "Server and client components render only their canonical labels for this embedded fractal.",
     fractalPath:
-      "@/app/[lang]/@rightStatic/(_ABOUT_PAGE)/subfractals/(_ABOUT_PAGE_SUBDOMAIN)",
+      `@/app/[lang]/@${placeholderCurrentSlot}/${placeholderFractalLevel1}/${fractalsSeparador}/${placeholderFractalLevel2}`,
   };
 
   const isDevMode = process.env.NODE_ENV === "development";
 
   return (
     <div
-          className={cn(
-            "aifa-fractal-container flex  flex-col gap-4 rounded-lg transition-all duration-400 " ,
-            isDevMode && `fractal-level-${clampedLevel}`,
-          )}
-          style={{ zIndex: clampedLevel * 100 }}
-        >
-          {isDevMode && (
-            <div className="fractal-dev-tools">
-        <FractalAboutPageSubdomainDevLabelHandler
-           pageData={pageData}
+      className={cn(
+        "aifa-fractal-container flex  flex-col gap-4 rounded-lg transition-all duration-400 ",
+        isDevMode && `fractal-level-${clampedLevel}`,
+      )}
+      style={{ zIndex: clampedLevel * 100 }}
+    >
+      {isDevMode && (
+        <div className="fractal-dev-tools">
+          <FractalAboutPageSubdomainDevLabelHandler
+            pageData={pageData}
             level={clampedLevel}
           />
         </div>
       )}
 
       <AboutPageSubdomainStarterServerConsumer
-          translations={translations}
-          lang={lang}
-          currentPath={currentPath}
-          pageData={pageData}
-          level={clampedLevel}
-        />
-        
+        translations={translations}
+        lang={lang}
+        currentPath={currentPath}
+        pageData={pageData}
+        level={clampedLevel}
+      />
+
 
       <AboutPageSubdomainStarterClientIsland
-          translations={translations}
-          lang={lang}
-          currentPath={currentPath}
-          pageData={pageData}
-          level={clampedLevel}
-        />
-      
+        translations={translations}
+        lang={lang}
+        currentPath={currentPath}
+        pageData={pageData}
+        level={clampedLevel}
+      />
+
     </div>
   );
 }

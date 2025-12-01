@@ -32,22 +32,23 @@ export async function FractalAboutPageEntry(
 
   const currentFractalLevel = level || 1;
   const clampedLevel = Math.max(1, Math.min(currentFractalLevel, 20));
-
+  const placeholderCurrentSlot = "rightStatic"
+  const placeholderFractalLevel1 = "(_ABOUT_PAGE)"
   const pageData: AboutPagePageData = {
     fractalName: "(_ABOUT_PAGE)",
-    fractalPath: "@/app/[lang]/@rightStatic/(_ABOUT_PAGE)",
+    fractalPath: `@/app/[lang]/@${placeholderCurrentSlot}/${placeholderFractalLevel1}`,
     fractalLevel: clampedLevel,
     fractalDescription:
       "Minimal Route Fractal for the About page with an embedded subdomain panel.",
     hint:
       "Use the client button to toggle the embedded subdomain fractal, similar to the ARTIFACT FS Inspector.",
-   
+
   };
 
   const isDevMode = process.env.NODE_ENV === "development";
 
   return (
-     <div
+    <div
       className={cn(
         "aifa-fractal-container flex flex-col gap-2 rounded-lg transition-all duration-200",
         isDevMode && `fractal-level-${clampedLevel}`,
