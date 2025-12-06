@@ -1,0 +1,11 @@
+{
+  "pricelist001": {
+    "cuidKey": "pricelist001",
+    "key": "greeting",
+    "translations": {
+      "en": "Hello from the Price List page",
+      "ru": "Привет со страницы прайс-листа",
+      "es": "Hola desde la página de lista de precios"
+    }
+  }
+}

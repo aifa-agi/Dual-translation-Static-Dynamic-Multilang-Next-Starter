@@ -8,7 +8,6 @@ import type {
   FractalArtifactTranslations,
   ArtifactPageData,
 } from "../../(_shared)/(_types)/fractal-artifact-types";
-
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 
@@ -19,35 +18,42 @@ type ArtifactStarterClientIslandProps = {
   pageData?: ArtifactPageData;
 };
 
-const MODES = [
-  "FS Inspector",
-  "Response Parser",
-  "Prompt Builder",
-  "Project Schema",
-  "Blob Manager",
-  "Content Tool",
-] as const;
+type ArtifactMode =
+  | "FS_INSPECTOR"
+  | "RESPONSE_PARSER"
+  | "PROMPT_BUILDER"
+  | "PROJECT_SCHEMA"
+  | "BLOB_MANAGER"
+  | "CONTENT_TOOL";
 
-type ArtifactMode = (typeof MODES)[number];
-
-const FS_INSPECTOR_MODE: ArtifactMode = "FS Inspector";
-const RESPONSE_PARSER_MODE: ArtifactMode = "Response Parser";
+const FS_INSPECTOR_MODE: ArtifactMode = "FS_INSPECTOR";
+const RESPONSE_PARSER_MODE: ArtifactMode = "RESPONSE_PARSER";
 
 export function ArtifactStarterClientIsland(
   props: ArtifactStarterClientIslandProps,
 ): JSX.Element {
-  const { translations, lang, currentPath, pageData } = props;
+  const { translations, lang, currentPath } = props;
 
   const [activeMode, setActiveMode] = useState<ArtifactMode | null>(null);
 
-  const title =
-    pageData?.fractalName ?? "ARTEFACT Workspace · Client Canvas";
-  const description =
-    pageData?.fractalDescription ??
-    "Client-side canvas with mode buttons for artifact tooling.";
-  const hint =
-    pageData?.hint ??
-    "Click FS Inspector or Response Parser to toggle panels below. Other modes are not implemented yet and will show a toast only.";
+  const getLabel = (mode: ArtifactMode): string => {
+    switch (mode) {
+      case "FS_INSPECTOR":
+        return translations.modeFsInspector;
+      case "RESPONSE_PARSER":
+        return translations.modeResponseParser;
+      case "PROMPT_BUILDER":
+        return translations.modePromptBuilder;
+      case "PROJECT_SCHEMA":
+        return translations.modeProjectSchema;
+      case "BLOB_MANAGER":
+        return translations.modeBlobManager;
+      case "CONTENT_TOOL":
+        return translations.modeContentTool;
+      default:
+        return "";
+    }
+  };
 
   const handleClick = useCallback(
     (mode: ArtifactMode) => {
@@ -66,7 +72,8 @@ export function ArtifactStarterClientIsland(
       }
 
       toast.info(
-        `${mode} · lang=${lang ?? "n/a"} · path=${currentPath ?? "n/a"}`,
+        `${getLabel(mode)} · lang=${lang ?? "n/a"} · path=${currentPath ?? "n/a"
+        }`,
         {
           description: `Greeting: ${translations.greeting}`,
           duration: 3500,
@@ -77,8 +84,12 @@ export function ArtifactStarterClientIsland(
   );
 
   useEffect(() => {
-    const fsInspectorPanel = document.getElementById("artifact-fs-inspector-panel");
-    const responseParserPanel = document.getElementById("artifact-response-parser-panel");
+    const fsInspectorPanel = document.getElementById(
+      "artifact-fs-inspector-panel",
+    );
+    const responseParserPanel = document.getElementById(
+      "artifact-response-parser-panel",
+    );
 
     if (fsInspectorPanel) {
       if (activeMode === FS_INSPECTOR_MODE) {
@@ -97,30 +108,46 @@ export function ArtifactStarterClientIsland(
     }
   }, [activeMode]);
 
-  return (
-    <section className="flex flex-col gap-3 rounded-md bg-gray-100 p-4 text-gray-900">
-      <h2 className="text-base font-semibold tracking-tight">{title}</h2>
-      <p className="text-sm text-gray-800">{description}</p>
-      <p className="text-xs text-gray-700">{hint}</p>
+  const modes: ArtifactMode[] = [
+    "FS_INSPECTOR",
+    "RESPONSE_PARSER",
+    "PROMPT_BUILDER",
+    "PROJECT_SCHEMA",
+    "BLOB_MANAGER",
+    "CONTENT_TOOL",
+  ];
 
+  return (
+    <section className="flex flex-col gap-3  ">
       <div className="mt-2 grid grid-cols-1 gap-2 sm:grid-cols-2 lg:grid-cols-3">
-        {MODES.map((mode) => (
+        {modes.map((mode) => (
           <Button
-            key={mode}
-            type="button"
-            size="sm"
-            variant={activeMode === mode ? "default" : "secondary"}
-            className="justify-start text-xs"
-            onClick={() => handleClick(mode)}
-          >
-            {mode}
-          </Button>
+  key={mode}
+  type="button"
+  size="sm"
+  variant={activeMode === mode ? "default" : "outline"}
+  className="relative justify-start px-2 text-xs  rounded-md"
+  onClick={() => handleClick(mode)}
+>
+  <span className="block max-w-full break-words pr-4 overflow-hidden">
+    {getLabel(mode)}
+  </span>
+
+  <span
+    aria-hidden="true"
+    className={
+      "pointer-events-none absolute inset-y-0 right-0  w-4 h-3" +
+      (activeMode === mode
+        ? "bg-gradient-to-l from-primary to-transparent  "
+        : "bg-gradient-to-l from-background to-transparent ")
+    }
+  />
+</Button>
+
         ))}
       </div>
 
-      <p className="mt-3 text-[10px] font-semibold uppercase tracking-wide text-gray-600">
-        Client island · use client
-      </p>
+
     </section>
   );
 }

@@ -8,7 +8,6 @@ import type {
   ArtifactFsInspectorFractalTree,
 } from "../../(_server)/(_fsqueries)/artifact-fs-inspector-fs-queries";
 import {
-  artifactFsInspectorReadFileAction,
   artifactFsInspectorReadFractalTreeAction,
   type ArtifactFsInspectorReadFileResult,
 } from "../../(_server)/(_actions)/artifact-fs-inspector-actions";
@@ -21,7 +20,6 @@ import { ArtifactFsInspectorInputSection } from "./artifact-fs-inspector-input-s
 import { ArtifactFsInspectorFileView } from "./artifact-fs-inspector-file-view";
 import { ArtifactFsInspectorFractalView } from "./artifact-fs-inspector-fractal-view";
 
-type ArtifactFsInspectorViewMode = "idle" | "file" | "fractal";
 
 type ArtifactFsInspectorState =
   | { mode: "idle" }
@@ -87,7 +85,7 @@ export default function ArtifactFsInspectorStarterClientIsland(
 
   return (
     <section className="flex flex-col gap-4 w-full px-4">
-      <ArtifactFsInspectorHeader />
+      <ArtifactFsInspectorHeader translations={props.translations}/>
 
       <ArtifactFsInspectorInputSection
         pathInput={pathInput}

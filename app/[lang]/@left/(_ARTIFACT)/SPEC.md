@@ -1,49 +1,64 @@
 // @/app/[lang]/@left/(_ARTIFACT)/SPEC.md
 
-# ARTEFACT Fractal – SPEC (Improved)
+---
+specVersion: "1.0.0"
+stage: "Improved"
+currentVersion: "v1.3.0"
+fractalId: "(_ARTIFACT)"
+kind: "Route"
+---
+
+# ARTEFACT Fractal – SPEC (Improved v1.3.0)
 
 ## Current Stage and Version
-
-- Lifecycle stage: **Improved Fractal** (Route Fractal, left slot).  
-- currentVersion: `v1.2.0`  
+- **Lifecycle stage**: Improved Fractal (Route Fractal, left slot)  
+- **currentVersion**: `v1.3.0`
 
 ### Versions and Artifacts
-
-- `v0.1.0` — Minimal: базовый скелет ARTEFACT без фактических subfractals и бизнес‑режимов.  
-- `v0.2.0` — Mature: добавлен subfractal `ARTIFACT_FS_INSPECTOR` (Minimal Embedded) и статический блок FS Inspector под основной канвой.  
-- `v1.0.0` — Improved v1: кнопка "FS Inspector" в клиентской канве управляет видимостью панели подфрактала `ARTIFACT_FS_INSPECTOR` (toggle) через стабильный `id` DOM‑элемента; остальные кнопки работают через toast‑уведомления. `blobUrl` для этой версии будет добавлен после экспорта артефакта.  
-- `v1.1.0` — Improved v2 (animations): добавлена анимированная панель FS Inspector — при включении режима панель разворачивается с плавной анимацией высоты и прозрачности, при выключении сворачивается, не меняя контракт Minimal Embedded‑подфрактала. `blobUrl` будет добавлен после экспорта этого состояния.  
-- `v1.2.0` — Improved v3 (Response Parser): добавлен второй Minimal Embedded subfractal `(_RESPONSE_PARSER)` с собственной toggle‑панелью и эксклюзивным переключением режимов. Кнопка "Response Parser" в клиентском островке ARTEFACT управляет видимостью панели парсера через DOM `id`. В каждый момент времени может быть активен только один режим (FS Inspector ИЛИ Response Parser). Остальные режимы (Prompt Builder, Project Schema, Blob Manager, Content Tool) остаются нереализованными и продолжают работать через toast. `blobUrl` будет добавлен после экспорта.  
+| Версия | Дата | Изменения | blobUrl |
+|--------|------|-----------|---------|
+| `v0.1.0` | Minimal | Базовый скелет ARTEFACT | - |
+| `v0.2.0` | Mature | Добавлен `(_ARTIFACT_FS_INSPECTOR)` | - |
+| `v1.0.0` | Improved v1 | Toggle FS Inspector | - |
+| `v1.1.0` | Improved v2 | Анимации FS Inspector | - |
+| `v1.2.0` | Improved v3 | Добавлен `(_RESPONSE_PARSER)` + эксклюзивное переключение | - |
+| **`v1.3.0`** | **Improved v4** | **2 режима парсинга**: SPEC Parser (текст→Minimal) + Code Parser (код→Mature/Improved)** | **будет добавлен** |
 
 ## Business Capabilities
 
-### Implemented
+### Implemented (v1.3.0)
+1. **FS Inspector** (`(_ARTIFACT_FS_INSPECTOR)`) — toggle + анимации
+2. **Response Parser** (`(_RESPONSE_PARSER)`) — 2 режима с эксклюзивным переключением:
+   - **SPEC Parser** — парсит Markdown→SPEC.md → запускает генератор Minimal fractals
+   - **Code Parser** — парсит кодовые блоки → применяет к Mature/Improved fractals
 
-1. **FS Inspector** как отдельный Minimal embedded‑подфрактал `ARTIFACT_FS_INSPECTOR`, монтируемый под основной канвой ARTEFACT (v0.2.0).  
+### Response Parser Modes
+SPEC MODE (текст → Minimal fractals)
+├── Парсит SPEC.md блоки из Perplexity ответа
+├── Создает/обновляет SPEC.md фрактала
+└── Запускает Minimal Starter generator
 
-2. **Improved v1: переключение режима FS Inspector**  
-   - Клиентский островок ARTEFACT поддерживает локальное состояние активного режима и управляет видимостью контейнера FS Inspector по стабильному `id` DOM‑элемента панели.  
-   - Кнопка "FS Inspector":
-     - при первом клике активирует режим FS Inspector и делает панель видимой;
-     - при повторном клике отключает режим и скрывает панель.  
-   - Остальные режимы (Prompt Builder, Response Parser, Project Schema, Blob Manager, Content Tool) на этой версии остаются "не реализованы" и продолжают работать через toast‑уведомления.  
+CODE MODE (код → Mature/Improved)
+├── State machine парсер для broken/nested ``` blocks
+├── Extract path из <!-- app/... -->
+└── Создает/обновляет .tsx/.ts/.json файлы
 
-3. **Improved v2: анимированная панель FS Inspector**  
-   - Панель FS Inspector рендерится как серверный контейнер с фиксированным `id="artifact-fs-inspector-panel"` и CSS‑классами для плавного перехода высоты, прозрачности и смещения, оставаясь Minimal Embedded‑подфракталом без собственной routing/SEO‑логики.  
-   - Клиентский островок ARTEFACT при смене `activeMode` управляет `max-height`, `opacity` и `translateY` контейнера через DOM‑манипуляции, реализуя разворачивание/сворачивание панели без изменения контракта серверного entry и без вмешательства в правила статической генерации.  
 
-4. **Improved v3: Response Parser subfractal с эксклюзивным переключением режимов**  
-   - Добавлен Minimal Embedded subfractal `(_RESPONSE_PARSER)` с трёхслойной структурой (client/server/shared), собственным SPEC.md, минимальным i18n‑триплетом (greeting key, en/ru/es) и `embedding-response-parser-slot.tsx` для подключения к родителю.  
-   - Клиентский островок ARTEFACT расширен для поддержки режима "Response Parser" с **эксклюзивным переключением**:
-     - В каждый момент времени может быть активен только один режим (FS Inspector ИЛИ Response Parser).
-     - При активации Response Parser режим FS Inspector автоматически деактивируется и его панель скрывается.
-     - При активации FS Inspector режим Response Parser автоматически деактивируется и его панель скрывается.
-     - При повторном клике на активную кнопку режим выключается полностью (обе панели скрыты, activeMode = null).
-   - Панель Response Parser (`id="artifact-response-parser-panel"`) монтируется в `fractal-artifact-entry.tsx` под панелью FS Inspector и управляется через независимый DOM‑контейнер с классом `hidden` по умолчанию.  
-   - Логика переключения реализована через единственное состояние `activeMode` типа `ArtifactMode | null`, что гарантирует эксклюзивность режимов на уровне типов TypeScript.  
-   - Остальные режимы (Prompt Builder, Project Schema, Blob Manager, Content Tool) остаются нереализованными и продолжают работать через toast.  
+## 16. AI–Architect Interaction Log
 
-### Planned
+**2025-12-03T18:52:00Z** Architect: "2 кнопки парсинга: SPEC Parser (текст→Minimal) + Code Parser (код→Mature/Improved)"  
+**AI Questions**:  
+- Логика переключения? → Эксклюзивное (один активен)  
+- UI? → 2 toggle кнопки в ArtifactStarterClientIsland  
+- Порядок? → Сначала SPEC.md → потом код  
 
-- Расширить механику переключения режимов и анимаций на остальные кнопки (Prompt Builder, Project Schema, Blob Manager, Content Tool) по мере выноса их в отдельные subfractals и добавления собственных панелей под основной канвой ARTEFACT.  
-- Добавить функциональность парсинга AI‑ответов в subfractal Response Parser (текущая версия содержит только скелет UI с минимальной демонстрацией i18n и серверного рендеринга).  
+**Agreed Summary**:  
+`(_RESPONSE_PARSER)` эволюционирует в 2 режима: SPEC Parser для спецификаций/Minimal + Code Parser для кода/Mature. Эксклюзивное переключение через `activeMode`. v1.3.0 SPEC обновлен.  
+
+**Links**: Business Capabilities, Response Parser Modes[1]
+
+## Next Steps
+1. ✅ **v1.3.0 SPEC** — зафиксировано разделение парсеров
+2. **Mature (_RESPONSE_PARSER)**: UI + базовый SPEC/Code парсер  
+3. **Improved v1 (_RESPONSE_PARSER)**: State machine + file writes
+4. **Improved v2**: Автозапуск generators по SPEC.md

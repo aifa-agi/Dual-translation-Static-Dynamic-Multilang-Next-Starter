@@ -1,0 +1,11 @@
+{
+  "pricelistsub001": {
+    "cuidKey": "pricelistsub001",
+    "key": "greeting",
+    "translations": {
+      "en": "Hello from Price List Subdomain",
+      "ru": "Привет из субдомена прайс-листа",
+      "es": "Hola desde el subdominio de lista de precios"
+    }
+  }
+}

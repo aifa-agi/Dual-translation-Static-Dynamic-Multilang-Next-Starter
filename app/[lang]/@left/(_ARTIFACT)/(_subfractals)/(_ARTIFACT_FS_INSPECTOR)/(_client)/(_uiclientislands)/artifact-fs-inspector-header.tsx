@@ -2,24 +2,26 @@
 
 "use client";
 
-export function ArtifactFsInspectorHeader() {
-  const title = "Artifact FS Inspector";
-  
-  const descriptionStart = "Enter any path that contains ";
-  const codeExample = "app/";
-  const descriptionEnd = " and inspect either a single file or the entire fractal that owns this path.";
-  
+import type { JSX } from "react";
+import type { FractalArtifactFsInspectorTranslations } from "../../(_shared)/(_types)/fractal-artifact-fs-inspector-types";
+
+type ArtifactFsInspectorHeaderProps = {
+  translations: FractalArtifactFsInspectorTranslations;
+};
+
+export function ArtifactFsInspectorHeader(
+  props: ArtifactFsInspectorHeaderProps,
+): JSX.Element {
+  const { translations } = props;
+
+  const title = translations.headerTitle;
+  const description = translations.headerDescription;
+
   return (
     <header className="flex flex-col gap-2">
-      <h2 className="text-lg font-semibold">
-        {title}
-      </h2>
+   
       <p className="text-xs text-muted-foreground">
-        {descriptionStart}
-       <code> de className=&quot;px-1 py-0.5 rounded bg-muted&quot;
-          {codeExample}
-        </code>
-        {descriptionEnd}
+        {description}
       </p>
     </header>
   );
