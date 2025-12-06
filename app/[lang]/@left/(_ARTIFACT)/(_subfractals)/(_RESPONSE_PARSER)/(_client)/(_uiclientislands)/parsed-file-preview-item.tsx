@@ -79,7 +79,7 @@ export function ParsedFilePreviewItem(
         />
         {file.originalPath && file.targetPath !== file.originalPath && (
           <span className="text-xs text-gray-500">
-            Original: de className="text-xs"{file.originalPath}
+            Original: de className="text-xs{file.originalPath}
           </span>
         )}
       </div>

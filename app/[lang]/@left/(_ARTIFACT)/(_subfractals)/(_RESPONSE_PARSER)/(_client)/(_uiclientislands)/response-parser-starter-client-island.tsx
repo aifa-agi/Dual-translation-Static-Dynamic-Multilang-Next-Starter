@@ -267,7 +267,7 @@ export function ResponseParserStarterClientIsland(
             <h3 className="text-sm font-semibold">Load Latest Response</h3>
             <p className="text-xs text-gray-600">
               Reads the latest file from{" "}
-              de className="rounded bg-gray-200 px-1 py-0.5 text-xs"
+              de className="rounded bg-gray-200 px-1 py-0.5 text-xs
               public/response-for-parsing/
 
             </p>

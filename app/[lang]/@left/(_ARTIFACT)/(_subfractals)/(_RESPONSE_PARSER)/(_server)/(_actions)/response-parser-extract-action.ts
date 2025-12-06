@@ -89,7 +89,7 @@ export async function responseParserExtractAction(
     const contentEndPos = nextMatch ? nextMatch.position : markdown.length;
 
     // Extract content
-    let content = markdown.slice(contentStartPos, contentEndPos).trim();
+    const content = markdown.slice(contentStartPos, contentEndPos).trim();
 
     console.log(`\n📦 Processing file #${i + 1}`);
     console.log(`   Path: ${path}`);
