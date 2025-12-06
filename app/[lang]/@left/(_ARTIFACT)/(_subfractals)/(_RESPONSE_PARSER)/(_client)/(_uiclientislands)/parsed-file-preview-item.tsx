@@ -19,7 +19,7 @@ export function ParsedFilePreviewItem(
 ): JSX.Element {
   const { file, onPathChange, onContentChange, onRemove } = props;
 
-  const [isPathEditing, setIsPathEditing] = useState(false);
+const [_isPathEditing, setIsPathEditing] = useState(false);
   const [isContentEditing, setIsContentEditing] = useState(false);
 
   const handlePathChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -79,7 +79,7 @@ export function ParsedFilePreviewItem(
         />
         {file.originalPath && file.targetPath !== file.originalPath && (
           <span className="text-xs text-gray-500">
-            Original: de className="text-xs{file.originalPath}
+           Original: {file.originalPath}
           </span>
         )}
       </div>
