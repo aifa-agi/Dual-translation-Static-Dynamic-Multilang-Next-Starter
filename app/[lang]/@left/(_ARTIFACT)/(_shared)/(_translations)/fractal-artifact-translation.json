@@ -1,5 +1,6 @@
 {
   "cm3starter001": {
+    "cuidKey": "cm3starter001",
     "key": "greeting",
     "translations": {
       "en": "Hello from the ARTEFACT left slot",
@@ -8,6 +9,7 @@
     }
   },
   "artifact001": {
+    "cuidKey": "artifact001",
     "key": "serverTitle",
     "translations": {
       "en": "Artifact sandbox",
@@ -16,6 +18,7 @@
     }
   },
   "artifact002": {
+    "cuidKey": "artifact002",
     "key": "serverDescription",
     "translations": {
       "en": "You are in a special AIFA environment that links the external Perplexity AI model with your application's file system.",
@@ -24,6 +27,7 @@
     }
   },
   "artifact003": {
+    "cuidKey": "artifact003",
     "key": "serverHint",
     "translations": {
       "en": "To work with the architecture, choose one of the functions below to optimize data import and export in development mode.",
@@ -32,6 +36,7 @@
     }
   },
   "artifact004": {
+    "cuidKey": "artifact004",
     "key": "modeFsInspector",
     "translations": {
       "en": "FS Inspector",
@@ -40,6 +45,7 @@
     }
   },
   "artifact005": {
+    "cuidKey": "artifact005",
     "key": "modeResponseParser",
     "translations": {
       "en": "Response Parser",
@@ -48,6 +54,7 @@
     }
   },
   "artifact006": {
+    "cuidKey": "artifact006",
     "key": "modePromptBuilder",
     "translations": {
       "en": "Prompt Builder",
@@ -56,6 +63,7 @@
     }
   },
   "artifact007": {
+    "cuidKey": "artifact007",
     "key": "modeProjectSchema",
     "translations": {
       "en": "Project Schema",
@@ -64,6 +72,7 @@
     }
   },
   "artifact008": {
+    "cuidKey": "artifact008",
     "key": "modeBlobManager",
     "translations": {
       "en": "Blob Manager",
@@ -72,6 +81,7 @@
     }
   },
   "artifact009": {
+    "cuidKey": "artifact009",
     "key": "modeContentTool",
     "translations": {
       "en": "Content Tool",

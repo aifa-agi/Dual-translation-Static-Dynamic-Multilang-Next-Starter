@@ -8,7 +8,6 @@ import type {
 import translationsData from "./fractal-artifact-fs-inspector-translation.json";
 
 type TranslationRecord = {
-  cuidKey: string;
   key: AllFractalArtifactFsInspectorTranslationKeys;
   translations: Record<string, string>;
 };
