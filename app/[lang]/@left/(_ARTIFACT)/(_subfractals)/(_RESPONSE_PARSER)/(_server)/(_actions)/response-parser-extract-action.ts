@@ -149,7 +149,7 @@ export async function responseParserExtractAction(
         `   Fallback slice start: ${contentStartPos}, end: ${contentEndPos}`,
       );
 
-      let sliceBetweenPaths = markdown.slice(contentStartPos, contentEndPos);
+      const  sliceBetweenPaths = markdown.slice(contentStartPos, contentEndPos);
       console.log(
         `   Fallback raw slice length: ${sliceBetweenPaths.length} chars`,
       );
