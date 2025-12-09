@@ -1,92 +1,101 @@
 {
-  "cm3starter001": {
-    "cuidKey": "cm3starter001",
+  "artifact-001": {
+    "cuidKey": "artifact-001",
     "key": "greeting",
     "translations": {
-      "en": "Hello from the ARTEFACT left slot",
-      "ru": "Привет из фрактала слота артефакта",
-      "es": "Hola desde el fractal de ranura ARTEFACT"
+      "en": "Hello from the Artifact fractal",
+      "ru": "Привет из фрактала артефакта",
+      "es": "Hola desde el fractal de artefacto"
     }
   },
-  "artifact001": {
-    "cuidKey": "artifact001",
+  "artifact-002": {
+    "cuidKey": "artifact-002",
     "key": "serverTitle",
     "translations": {
-      "en": "Artifact sandbox",
-      "ru": "Песочница артефакта",
-      "es": "Sandbox de artefactos"
+      "en": "Artifact server container",
+      "ru": "Серверный контейнер артефакта",
+      "es": "Contenedor de servidor de artefacto"
     }
   },
-  "artifact002": {
-    "cuidKey": "artifact002",
+  "artifact-003": {
+    "cuidKey": "artifact-003",
     "key": "serverDescription",
     "translations": {
-      "en": "You are in a special AIFA environment that links the external Perplexity AI model with your application's file system.",
-      "ru": "Вы находитесь в специальной среде архитектуры AIFA, которая связывает внешнюю модель искусственного интеллекта Perplexity с файловой системой вашего приложения.",
-      "es": "Estás en un entorno especial de la arquitectura AIFA que conecta el modelo de IA Perplexity con el sistema de archivos de tu aplicación."
+      "en": "Server component showing routing and translations wiring.",
+      "ru": "Серверный компонент, показывающий связку маршрутов и переводов.",
+      "es": "Componente de servidor que muestra el enlace de rutas y traducciones."
     }
   },
-  "artifact003": {
-    "cuidKey": "artifact003",
+  "artifact-004": {
+    "cuidKey": "artifact-004",
     "key": "serverHint",
     "translations": {
-      "en": "To work with the architecture, choose one of the functions below to optimize data import and export in development mode.",
-      "ru": "Для взаимодействия с архитектурой выберите одну из функций ниже — это поможет оптимизировать импорт и экспорт данных в режиме разработки.",
-      "es": "Para trabajar con la arquitectura, elige una de las funciones de abajo para optimizar la importación y exportación de datos en modo de desarrollo."
+      "en": "Tip: extend this artifact fractal with more inspector modes.",
+      "ru": "Подсказка: расширьте этот фрактал артефакта дополнительными режимами инспектора.",
+      "es": "Consejo: amplía este fractal de artefacto con más modos de inspector."
     }
   },
-  "artifact004": {
-    "cuidKey": "artifact004",
+  "artifact-005": {
+    "cuidKey": "artifact-005",
     "key": "modeFsInspector",
     "translations": {
-      "en": "FS Inspector",
-      "ru": "FS‑инспектор",
-      "es": "Inspector de FS"
+      "en": "FS Inspector mode",
+      "ru": "Режим FS‑инспектора",
+      "es": "Modo inspector de sistema de archivos"
     }
   },
-  "artifact005": {
-    "cuidKey": "artifact005",
+  "artifact-006": {
+    "cuidKey": "artifact-006",
     "key": "modeResponseParser",
     "translations": {
-      "en": "Response Parser",
-      "ru": "Парсер ответов",
-      "es": "Analizador de respuestas"
+      "en": "Response parser mode",
+      "ru": "Режим парсера ответов",
+      "es": "Modo analizador de respuestas"
     }
   },
-  "artifact006": {
-    "cuidKey": "artifact006",
+  "artifact-007": {
+    "cuidKey": "artifact-007",
     "key": "modePromptBuilder",
     "translations": {
-      "en": "Prompt Builder",
-      "ru": "Конструктор промтов",
-      "es": "Creador de prompts"
+      "en": "Prompt builder mode",
+      "ru": "Режим конструктора промптов",
+      "es": "Modo constructor de prompts"
     }
   },
-  "artifact007": {
-    "cuidKey": "artifact007",
+  "artifact-008": {
+    "cuidKey": "artifact-008",
     "key": "modeProjectSchema",
     "translations": {
-      "en": "Project Schema",
-      "ru": "Схема проекта",
-      "es": "Esquema del proyecto"
+      "en": "Project schema mode",
+      "ru": "Режим схемы проекта",
+      "es": "Modo esquema de proyecto"
     }
   },
-  "artifact008": {
-    "cuidKey": "artifact008",
+  "artifact-009": {
+    "cuidKey": "artifact-009",
     "key": "modeBlobManager",
     "translations": {
-      "en": "Blob Manager",
-      "ru": "Менеджер Blob‑артефактов",
-      "es": "Gestor de blobs"
+      "en": "Blob manager mode",
+      "ru": "Режим менеджера Blob‑хранилища",
+      "es": "Modo gestor de blobs"
     }
   },
-  "artifact009": {
-    "cuidKey": "artifact009",
+  "artifact-010": {
+    "cuidKey": "artifact-010",
     "key": "modeContentTool",
     "translations": {
-      "en": "Content Tool",
-      "ru": "Инструмент контента",
-      "es": "Herramienta de contenido"
+      "en": "Content tool mode",
+      "ru": "Режим контент‑инструмента",
+      "es": "Modo herramienta de contenido"
+    }
+  },
+  "artifact-011": {
+    "cuidKey": "artifact-011",
+    "key": "modePluginTransformer",
+    "translations": {
+      "en": "Plugin transformer mode",
+      "ru": "Режим плагина‑трансформера",
+      "es": "Modo transformador de plugins"
     }
   }
 }

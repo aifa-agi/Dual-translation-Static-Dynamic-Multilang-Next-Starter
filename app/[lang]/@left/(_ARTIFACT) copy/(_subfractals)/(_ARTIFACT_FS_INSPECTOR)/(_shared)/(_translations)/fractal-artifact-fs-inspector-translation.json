@@ -1,0 +1,51 @@
+{
+  "cm3artifactfs001": {
+    "cuidKey": "cm3artifactfs001",
+    "key": "greeting",
+    "translations": {
+      "en": "Hello from ARTIFACT FS Inspector",
+      "ru": "Привет из подфрактала ARTIFACT FS Inspector",
+      "es": "Hola desde el subfractal ARTIFACT FS Inspector"
+    }
+  },
+  "artifactfs001": {
+    "key": "serverTitle",
+    "translations": {
+      "en": "Artifact FS Inspector",
+      "ru": "Инспектор файловой системы артефакта",
+      "es": "Inspector del sistema de archivos de artefactos"
+    }
+  },
+  "artifactfs002": {
+    "key": "serverDescription",
+    "translations": {
+      "en": "Allows you to copy the contents of all components and documents of a single fractal, excluding its sub-fractals.",
+      "ru": "Позволяет скопировать содержимое всех компонентов и документов одного фрактала, исключая его подфракталы.",
+      "es": "Permite copiar el contenido de todos los componentes y documentos de un único fractal, excluyendo sus subfractales."
+    }
+  },
+  "artifactfs003": {
+    "key": "serverHint",
+    "translations": {
+      "en": "Lets you build a request to the external Perplexity AI model and send it all selected files with a single click.",
+      "ru": "Позволяет сформировать запрос к внешней модели искусственного интеллекта Perplexity и передать ей все выбранные файлы одной кнопкой.",
+      "es": "Te permite crear una solicitud al modelo de IA externo Perplexity y enviarle todos los archivos seleccionados con un solo clic."
+    }
+  },
+  "artifactfs004": {
+    "key": "headerTitle",
+    "translations": {
+      "en": "Artifact FS Inspector",
+      "ru": "Инспектор файловой системы артефакта",
+      "es": "Inspector del sistema de archivos de artefactos"
+    }
+  },
+  "artifactfs005": {
+    "key": "headerDescription",
+    "translations": {
+      "en": "In the top-right corner of the fractal, click \"Copy fractal path\", then paste that value into the input field to read and copy the entire fractal.",
+      "ru": "В правом верхнем углу фрактала нажмите кнопку \"Copy fractal path\", затем вставьте это значение в поле ввода, чтобы прочитать и скопировать весь фрактал.",
+      "es": "En la esquina superior derecha del fractal, haz clic en \"Copy fractal path\" y pega ese valor en el campo de entrada para leer y copiar todo el fractal."
+    }
+  }
+}

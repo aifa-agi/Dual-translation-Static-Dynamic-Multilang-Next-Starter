@@ -1,6 +1,4 @@
 // @/app/[lang]/@left/(_ARTIFACT)/(_shared)/(_types)/fractal-artifact-types.ts
-
-// All translation keys for the ARTEFACT starter fractal.
 export type AllFractalArtifactTranslationKeys =
   | "greeting"
   | "serverTitle"
@@ -11,9 +9,10 @@ export type AllFractalArtifactTranslationKeys =
   | "modePromptBuilder"
   | "modeProjectSchema"
   | "modeBlobManager"
-  | "modeContentTool";
+  | "modeContentTool"
+  | "modePluginFractalManager"
+  | "modePluginTransformer";
 
-// Complete translations object for the ARTEFACT starter fractal.
 export type FractalArtifactTranslations = {
   [K in AllFractalArtifactTranslationKeys]: string;
 };

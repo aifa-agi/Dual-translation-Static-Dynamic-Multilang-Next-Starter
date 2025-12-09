@@ -24,6 +24,7 @@ type ArtifactMode =
   | "PROMPT_BUILDER"
   | "PROJECT_SCHEMA"
   | "BLOB_MANAGER"
+  | "PLUGIN_TRANSFORMER"
   | "CONTENT_TOOL";
 
 const FS_INSPECTOR_MODE: ArtifactMode = "FS_INSPECTOR";
@@ -48,6 +49,8 @@ export function ArtifactStarterClientIsland(
         return translations.modeProjectSchema;
       case "BLOB_MANAGER":
         return translations.modeBlobManager;
+      case "PLUGIN_TRANSFORMER":
+        return translations.modePluginTransformer;
       case "CONTENT_TOOL":
         return translations.modeContentTool;
       default:
@@ -115,6 +118,7 @@ export function ArtifactStarterClientIsland(
     "PROJECT_SCHEMA",
     "BLOB_MANAGER",
     "CONTENT_TOOL",
+    "PLUGIN_TRANSFORMER",
   ];
 
   return (

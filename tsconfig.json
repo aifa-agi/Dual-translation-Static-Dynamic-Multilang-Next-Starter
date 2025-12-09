@@ -42,8 +42,9 @@
     "next.config.js",
     "next.config.mjs",
     "types/global.d.ts",
-    ".next/dev/types/**/*.ts"
-, "app/[lang]/@rightStatic/@modal/(.)interception_modal/(_shared)/(_translations)/lead-form-translation.json."  ],
+    ".next/dev/types/**/*.ts",
+    "app/[lang]/@rightStatic/@modal/(.)interception_modal/(_shared)/(_translations)/lead-form-translation.json."
+  ],
   "exclude": [
     "node_modules"
   ]
