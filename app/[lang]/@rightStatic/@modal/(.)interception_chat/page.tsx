@@ -3,7 +3,6 @@
 
 import { useRouter } from "next/navigation";
 import { useState, useEffect } from "react";
-import ChatExample from "@/components/chat-example/chat-example";
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import { appConfig } from "@/config/app-config";
@@ -94,7 +93,7 @@ console.log("(...)interception_modal/chat loaded");
       </div>
     </div>
 
-        <ChatExample />
+        <p>Chat</p>
       </div>
     </>
   );
